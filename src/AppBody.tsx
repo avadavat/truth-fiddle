@@ -6,9 +6,19 @@ import { InputBox, SimpleTable } from '.';
  * as a layer of abstraction from App.
  */
 export const AppBody = React.memo(function AppBody() {
-  const onQueryChange = (query: string) => {
-    console.log(query);
+  const [query, setQuery] = React.useState<string>('');
+
+  const onQueryChange = (newQuery: string) => {
+    setQuery(newQuery);
   };
+
+  React.useEffect(() => {
+    // TODO: Check if it's a valid query
+    // TODO: Extract variables from expression
+    // TODO: Provide a callback to evaluate the expression
+    // TODO: Populate the table
+    console.log(query);
+  }, [query]);
 
   return (
     <>
