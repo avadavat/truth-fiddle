@@ -7,6 +7,18 @@ const inputBoxStyle: React.CSSProperties = {
   fontSize: 24,
 };
 
-export const InputBox = React.memo(function InputBox() {
-  return <input style={inputBoxStyle} />;
+interface InputBoxProps {
+  onQueryChange: (query: string) => void;
+}
+
+/**
+ * InputBox is where the user can enter their boolean expression.
+ */
+export const InputBox = React.memo(function InputBox(props: InputBoxProps) {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    props.onQueryChange(query);
+  };
+
+  return <input style={inputBoxStyle} onChange={onChange} />;
 });

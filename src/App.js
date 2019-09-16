@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
-import { InputBox, SimpleTable } from '.';
+import { AppBody } from '.';
 
+/**
+ * App is the root wrapper around the application.
+ */
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <InputBox />
-        <SimpleTable />
+        <AppBody />
       </header>
     </div>
   );
