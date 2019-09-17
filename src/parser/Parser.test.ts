@@ -22,4 +22,12 @@ describe('expressions with parenthesis', () => {
   it('evaluates "(p AND q) OR r" to be valid', () => {
     expect(isValid('(p AND q) OR r')).toBe(true);
   });
+
+  it('evaluates "(p AND (q OR r))" to be valid', () => {
+    expect(isValid('(p AND (q OR r))')).toBe(true);
+  });
+
+  it('evaluates "(p AND (q OR r)" to be invalid', () => {
+    expect(isValid('(p AND (q OR r)')).toBe(false);
+  });
 });
