@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { AppBody } from '.';
+import { AppBody } from './view';
 
 /**
  * App is the root wrapper around the application.
