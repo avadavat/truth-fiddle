@@ -13,4 +13,5 @@ serviceWorker.unregister();
 
 export * from './AppBody';
 export * from './InputBox';
+export * from './parser';
 export * from './SimpleTable';
