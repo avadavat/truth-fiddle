@@ -31,3 +31,9 @@ describe('expressions with parenthesis', () => {
     expect(isValid('(p AND (q OR r)')).toBe(false);
   });
 });
+
+describe('expressions with invalid tokens', () => {
+  it('evaluates "(p AND {q}) OR r" to be invalid', () => {
+    expect(isValid('(p AND {q}) OR r')).toBe(false);
+  });
+});
