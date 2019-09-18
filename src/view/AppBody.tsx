@@ -1,5 +1,6 @@
 import React from 'react';
-import { InputBox, SimpleTable } from '.';
+import { InputBox } from './InputBox';
+import { SimpleTable } from './SimpleTable';
 
 /**
  * AppBody contains everything in the application, just used

@@ -1,4 +1,4 @@
-import { isValid } from '.';
+import { isValid } from './Parser';
 
 describe('simple expression tests', () => {
   it('evaluates "p AND q" to be valid', () => {
