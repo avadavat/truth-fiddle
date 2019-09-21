@@ -6,7 +6,7 @@ const validTokens = new Set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
  * no consecutive special keywords and no consecutive variables.
  * @param expression
  */
-export function assertIsValid(expression: string): void {
+export function assertIsValidExpression(expression: string): void {
   assertNoInvalidTokens(expression);
   assertMatchesParenthesis(expression);
 }
