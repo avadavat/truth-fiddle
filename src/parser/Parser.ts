@@ -1,8 +1,17 @@
 import { assertIsValidInput } from './ParserAssertions';
 
-export function parse(input: string): void {
-  assertIsValidInput(input);
-  return extractVariables(input);
-}
+const reservedKeywords = new Set(['and', 'not', 'or']);
 
-function extractVariables(expression: string) {}
+// Splits by parentheses and white space.
+const splitRegex = new RegExp(/[ ()]+/g);
+
+export function parse(expression: string): string[] {
+  assertIsValidInput(expression);
+  const words = expression.split(splitRegex);
+
+  // Any word that isn't a reserved keyword is a variable.
+  const variables = words.filter(
+    word => !reservedKeywords.has(word.toLowerCase())
+  );
+  return variables;
+}

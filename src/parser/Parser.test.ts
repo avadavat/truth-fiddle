@@ -1,11 +1,15 @@
 import { parse } from './Parser';
 
-describe('simple variable extraction tests', () => {
-  it('evaluates "p AND q" not to throw an error', () => {
+describe('variable extraction tests', () => {
+  it('extracts [p, q] from "p AND q"', () => {
     expect(parse('p AND q')).toEqual(['p', 'q']);
   });
 
-  it('evaluates "p AND q OR r" not to throw an error', () => {
+  it('extracts [p, q, r] from "p AND q OR r"', () => {
+    expect(parse('p AND q OR r')).toEqual(['p', 'q', 'r']);
+  });
+
+  it('extracts [p, q, r] from " ( p AND (q OR r))"', () => {
     expect(parse('p AND q OR r')).toEqual(['p', 'q', 'r']);
   });
 });
