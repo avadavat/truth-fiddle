@@ -1,47 +1,37 @@
-// TODO: Fully populate this list.
-const invalidTokens = new Set(['+', '{', '}', '[', ']']);
+const validTokens = new Set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ() '.split(''));
 
 /**
  * Initial pass through an expression to determine if it is valid.
  * Ensures there are no invalid tokens, all parenthesis are closed,
  * no consecutive special keywords and no consecutive variables.
- * TODO: Error messages for the user.
  * @param expression
  */
-export function isValid(expression: string): boolean {
-  if (containsInvalidTokens(expression)) {
-    return false;
-  }
-
-  if (!matchesParenthesis(expression)) {
-    return false;
-  }
-
-  return true;
+export function assertIsValid(expression: string): void {
+  assertNoInvalidTokens(expression);
+  assertMatchesParenthesis(expression);
 }
 
 /**
- * Returns true if there are no invalid tokens in the expression.
+ * Ensures there are no invalid tokens in the given expression.
  * @param expression
  */
-function containsInvalidTokens(expression: string): boolean {
-  for (const character of expression) {
-    if (invalidTokens.has(character)) {
-      return true;
+function assertNoInvalidTokens(expression: string): void {
+  for (const token of expression) {
+    if (!validTokens.has(token)) {
+      throw new Error(`Invalid token ${token}!`);
     }
   }
-
-  return false;
 }
 
 /**
- * Returns true if parenthesis are evenly matched in the given expression.
+ * Ensures parenthesis in the given expression are evenly matched.
  * @param expression
  */
-function matchesParenthesis(expression: string): boolean {
+function assertMatchesParenthesis(expression: string): void {
   let parenCount = 0;
 
-  for (const character of expression) {
+  for (let i = 0; i < expression.length; i += 1) {
+    const character = expression.charAt(i);
     if (character === '(') {
       parenCount += 1;
     } else if (character === ')') {
@@ -49,9 +39,11 @@ function matchesParenthesis(expression: string): boolean {
     }
 
     if (parenCount < 0) {
-      return false;
+      throw new Error(`Overmatched parenthesis at index ${i}!`);
     }
   }
 
-  return parenCount === 0;
+  if (parenCount > 0) {
+    throw new Error('Undermatched parenthesis!')
+  }
 }

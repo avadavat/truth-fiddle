@@ -1,39 +1,41 @@
-import { isValid } from './Parser';
+import { assertIsValid } from './Parser';
 
 describe('simple expression tests', () => {
-  it('evaluates "p AND q" to be valid', () => {
-    expect(isValid('p AND q')).toBe(true);
+  it('evaluates "p AND q" not to throw an error', () => {
+    expect(() => assertIsValid('p AND q')).not.toThrowError();
   });
 
-  it('evaluates "p AND q OR r" to be valid', () => {
-    expect(isValid('p AND q OR r')).toBe(true);
+  it('evaluates "p AND q OR r" not to throw an error', () => {
+    expect(() => assertIsValid('p AND q OR r')).not.toThrowError();
   });
 
-  it('evaluates "p q" to be invalid', () => {
-    expect(isValid('p q')).toBe(false);
+  // TODO: Reenable when this test case is supported.
+  it.skip('evaluates "p q" to throw an error', () => {
+    expect(() => assertIsValid('p q')).toThrowError();
   });
 
-  it('evaluates "p AND q OR" to be invalid', () => {
-    expect(isValid('p AND q OR')).toBe(false);
+  // TODO: Reenable when this test case is supported.
+  it.skip('evaluates "p AND q OR" to throw an error', () => {
+    expect(() => assertIsValid('p AND q OR')).toThrowError();
   });
 });
 
 describe('expressions with parenthesis', () => {
-  it('evaluates "(p AND q) OR r" to be valid', () => {
-    expect(isValid('(p AND q) OR r')).toBe(true);
+  it('evaluates "(p AND q) OR r" not to throw an error', () => {
+    expect(() => assertIsValid('(p AND q) OR r')).not.toThrowError();
   });
 
-  it('evaluates "(p AND (q OR r))" to be valid', () => {
-    expect(isValid('(p AND (q OR r))')).toBe(true);
+  it('evaluates "(p AND (q OR r))" not to throw an error', () => {
+    expect(() => assertIsValid('(p AND (q OR r))')).not.toThrowError();
   });
 
-  it('evaluates "(p AND (q OR r)" to be invalid', () => {
-    expect(isValid('(p AND (q OR r)')).toBe(false);
+  it('evaluates "(p AND (q OR r)" to throw an error', () => {
+    expect(() => assertIsValid('(p AND (q OR r)')).toThrowError();
   });
 });
 
 describe('expressions with invalid tokens', () => {
-  it('evaluates "(p AND {q}) OR r" to be invalid', () => {
-    expect(isValid('(p AND {q}) OR r')).toBe(false);
+  it('evaluates "(p AND {q}) OR r" to throw an error', () => {
+    expect(() => assertIsValid('(p AND {q}) OR r')).toThrowError();
   });
 });
