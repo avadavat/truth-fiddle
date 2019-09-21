@@ -1,6 +1,6 @@
-import { assertIsValidExpression } from './Parser';
+import { assertIsValidExpression } from './ParserAssertions';
 
-describe('simple expression tests', () => {
+describe('simple error handling tests', () => {
   it('evaluates "p AND q" not to throw an error', () => {
     expect(() => assertIsValidExpression('p AND q')).not.toThrowError();
   });
@@ -20,13 +20,15 @@ describe('simple expression tests', () => {
   });
 });
 
-describe('expressions with parenthesis', () => {
+describe('parenthesis error handling tests', () => {
   it('evaluates "(p AND q) OR r" not to throw an error', () => {
     expect(() => assertIsValidExpression('(p AND q) OR r')).not.toThrowError();
   });
 
   it('evaluates "(p AND (q OR r))" not to throw an error', () => {
-    expect(() => assertIsValidExpression('(p AND (q OR r))')).not.toThrowError();
+    expect(() =>
+      assertIsValidExpression('(p AND (q OR r))')
+    ).not.toThrowError();
   });
 
   it('evaluates "(p AND (q OR r)" to throw an error', () => {
