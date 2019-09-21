@@ -1,6 +1,7 @@
 import React from 'react';
 import { InputBox } from './InputBox';
 import { SimpleTable } from './SimpleTable';
+import { parse } from '../parser';
 
 /**
  * AppBody contains everything in the application, just used
@@ -8,18 +9,26 @@ import { SimpleTable } from './SimpleTable';
  */
 export const AppBody = React.memo(function AppBody() {
   const [query, setQuery] = React.useState<string>('');
+  const [variables, setVariables] = React.useState<string[]>([]);
 
   const onQueryChange = (newQuery: string) => {
     setQuery(newQuery);
   };
 
   React.useEffect(() => {
-    // TODO: Check if it's a valid query
-    // TODO: Extract variables from expression
+    try {
+      setVariables(parse(query));
+    } catch (e) {
+      // TODO: Display error message to the user.
+      console.log(e.message);
+    }
+  }, [query]);
+
+  React.useEffect(() => {
     // TODO: Provide a callback to evaluate the expression
     // TODO: Populate the table
-    console.log(query);
-  }, [query]);
+    console.log('variables:', variables);
+  }, [variables]);
 
   return (
     <>
