@@ -9,12 +9,12 @@ describe('simple expression tests', () => {
     expect(() => assertIsValidExpression('p AND q OR r')).not.toThrowError();
   });
 
-  // TODO: Reenable when this test case is supported.
+  // TODO: Re-enable when this test case is supported.
   it.skip('evaluates "p q" to throw an error', () => {
     expect(() => assertIsValidExpression('p q')).toThrowError();
   });
 
-  // TODO: Reenable when this test case is supported.
+  // TODO: Re-enable when this test case is supported.
   it.skip('evaluates "p AND q OR" to throw an error', () => {
     expect(() => assertIsValidExpression('p AND q OR')).toThrowError();
   });
