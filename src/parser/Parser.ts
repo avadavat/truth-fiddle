@@ -1,5 +1,8 @@
-import { assertIsValidExpression } from './ParserAssertions';
+import { assertIsValidInput } from './ParserAssertions';
 
-export function parse(expression: string): void {
-  assertIsValidExpression(expression);
+export function parse(input: string): void {
+  assertIsValidInput(input);
+  return extractVariables(input);
 }
+
+function extractVariables(expression: string) {}

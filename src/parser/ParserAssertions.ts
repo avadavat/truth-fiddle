@@ -3,22 +3,22 @@ const validTokens = new Set(
 );
 
 /**
- * Initial pass through an expression to determine if it is valid.
+ * Initial pass through an input to determine if it is valid.
  * Ensures there are no invalid tokens, all parenthesis are closed,
  * no consecutive special keywords and no consecutive variables.
- * @param expression
+ * @param input
  */
-export function assertIsValidExpression(expression: string): void {
-  assertNoInvalidTokens(expression);
-  assertMatchesParenthesis(expression);
+export function assertIsValidInput(input: string): void {
+  assertNoInvalidTokens(input);
+  assertMatchesParenthesis(input);
 }
 
 /**
- * Ensures there are no invalid tokens in the given expression.
- * @param expression
+ * Ensures there are no invalid tokens in the given input.
+ * @param input
  */
-function assertNoInvalidTokens(expression: string): void {
-  for (const token of expression) {
+function assertNoInvalidTokens(input: string): void {
+  for (const token of input) {
     if (!validTokens.has(token)) {
       throw new Error(`Invalid token ${token}!`);
     }
@@ -26,14 +26,14 @@ function assertNoInvalidTokens(expression: string): void {
 }
 
 /**
- * Ensures parenthesis in the given expression are evenly matched.
- * @param expression
+ * Ensures parenthesis in the given input are evenly matched.
+ * @param input
  */
-function assertMatchesParenthesis(expression: string): void {
+function assertMatchesParenthesis(input: string): void {
   let parenCount = 0;
 
-  for (let i = 0; i < expression.length; i += 1) {
-    const character = expression.charAt(i);
+  for (let i = 0; i < input.length; i += 1) {
+    const character = input.charAt(i);
     if (character === '(') {
       parenCount += 1;
     } else if (character === ')') {
