@@ -1,5 +1,7 @@
 import { QueryParameters, QueryPermutation } from './QueryPermutation';
 import { ParseResult } from '../parser';
+import { createSemantics } from './createSemantics';
+import { MatchResult } from 'ohm-js';
 
 /**
  * Generates all possible QueryPermutations given a query, that is, a list
@@ -16,6 +18,7 @@ export function generateQueryPermutations(
   let queryPermutations: QueryPermutation[] = [];
   let variableStates: boolean[] = [];
   generateQueryPermutationsHelper(
+    parseResult.matchResult,
     queryPermutations,
     parseResult.variableNames,
     variableStates,
@@ -34,6 +37,7 @@ export function generateQueryPermutations(
  * Caution: This function runs exponentially relative to the number of variables.
  */
 function generateQueryPermutationsHelper(
+  matchResult: MatchResult,
   queryPermutations: QueryPermutation[],
   variableNames: string[],
   variableStates: boolean[],
@@ -43,7 +47,7 @@ function generateQueryPermutationsHelper(
     // We have a value for every variable, add this
     // permutation to the list.
     queryPermutations.push(
-      constructQueryPermutation(variableNames, variableStates)
+      constructQueryPermutation(matchResult, variableNames, variableStates)
     );
     return;
   }
@@ -52,6 +56,7 @@ function generateQueryPermutationsHelper(
   // of the variable at the current index.
   variableStates[variableIndex] = false;
   generateQueryPermutationsHelper(
+    matchResult,
     queryPermutations,
     variableNames,
     variableStates,
@@ -59,6 +64,7 @@ function generateQueryPermutationsHelper(
   );
   variableStates[variableIndex] = true;
   generateQueryPermutationsHelper(
+    matchResult,
     queryPermutations,
     variableNames,
     variableStates,
@@ -71,6 +77,7 @@ function generateQueryPermutationsHelper(
  * the unique variable names in the query and their corresponding states.
  */
 function constructQueryPermutation(
+  matchResult: MatchResult,
   variableNames: string[],
   variableStates: boolean[]
 ): QueryPermutation {
@@ -81,21 +88,19 @@ function constructQueryPermutation(
 
   const queryPermutation: QueryPermutation = {
     queryParameters,
-    value: evaluateQueryWithParameters(queryParameters),
+    value: evaluateQueryWithParameters(matchResult, queryParameters),
   };
 
   return queryPermutation;
 }
 
 /**
- * Evaluates the given query with the given parameters.
- *
- * TODO: Create the Semantics object for TruthGrammar with the given parameters
- * and evaluate.
- * @param _query
- * @param _parameters
+ * Evaluates the query with the given match result and parameters.
  */
-function evaluateQueryWithParameters(_parameters: QueryParameters) {
-  // TODO: Evaluate the parameters.
-  return false;
+function evaluateQueryWithParameters(
+  matchResult: MatchResult,
+  queryParameters: QueryParameters
+) {
+  const semantics = createSemantics(queryParameters);
+  return semantics(matchResult).evaluate();
 }
