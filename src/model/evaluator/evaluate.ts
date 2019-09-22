@@ -9,9 +9,7 @@ import { MatchResult } from 'ohm-js';
  * of all possible states for each unique variable in the query and the value
  * from evaluating the given query with those states.
  */
-export function generateQueryPermutations(
-  parseResult: ParseResult
-): QueryPermutation[] {
+export function evaluate(parseResult: ParseResult): QueryPermutation[] {
   // Generate all query parameters permutations.
   const allQueryParameters: QueryParameters[] = [];
   generateQueryParametersPermutations(

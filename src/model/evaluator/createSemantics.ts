@@ -15,8 +15,8 @@ export function createSemantics(queryParameters: QueryParameters) {
     Exp: function(e) {
       return e.evaluate();
     },
-    NotExp: function(e) {
-      return !e.evaluate();
+    NotExp: function(_op, exp) {
+      return !exp.evaluate();
     },
     OrExp: function(left, _op, right) {
       return left.evaluate() || right.evaluate();
@@ -30,8 +30,8 @@ export function createSemantics(queryParameters: QueryParameters) {
     ParenExp: function(_open, exp, _close) {
       return exp.evaluate();
     },
-    ident: function(variableNode) {
-      const variableName = variableNode.primitiveValue;
+    ident: function(first, remaining) {
+      const variableName = first.sourceString + remaining.sourceString;
       return queryParameters[variableName];
     },
   });

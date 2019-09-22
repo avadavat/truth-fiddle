@@ -1,10 +1,9 @@
-import { generateQueryPermutations } from '../model/evaluator/generateQueryPermutations';
 import { QueryPermutation } from '../model/evaluator/QueryPermutation';
+import { evaluate } from '../model/evaluator/evaluate';
 import { parse } from '../model/parser';
 
 describe('simple query permutation tests', () => {
-  // TODO: Enable this test once we correctly evaluate value.
-  it.skip('generates correct query permutations for "p and q"', () => {
+  it('generates correct query permutations for "p and q"', () => {
     const expectedResult: QueryPermutation[] = [
       {
         queryParameters: {
@@ -36,24 +35,20 @@ describe('simple query permutation tests', () => {
       },
     ];
 
-    expect(generateQueryPermutations(parse('p and q'))).toBe(expectedResult);
+    expect(evaluate(parse('p and q'))).toStrictEqual(expectedResult);
   });
 });
 
 describe('generates correct number of permutations', () => {
   it('generates 4 permutations for 2 unique variables', () => {
-    expect(generateQueryPermutations(parse('p and q'))).toHaveLength(4);
+    expect(evaluate(parse('p and q'))).toHaveLength(4);
   });
 
   it('generates 16 permutations for 4 unique variables', () => {
-    expect(generateQueryPermutations(parse('p and q or r xor s'))).toHaveLength(
-      16
-    );
+    expect(evaluate(parse('p and q or r xor s'))).toHaveLength(16);
   });
 
   it('generates 16 permutations for 4 unique variables', () => {
-    expect(
-      generateQueryPermutations(parse('p and q or r xor s or p or q'))
-    ).toHaveLength(16);
+    expect(evaluate(parse('p and q or r xor s or p or q'))).toHaveLength(16);
   });
 });
