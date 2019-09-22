@@ -8,19 +8,18 @@ import { MatchResult } from 'ohm-js';
  * Generates all possible QueryPermutations given a query, that is, a list
  * of all possible states for each unique variable in the query and the value
  * from evaluating the given query with those states.
- * @param query
  */
 export function generateQueryPermutations(
   parseResult: ParseResult
 ): QueryPermutation[] {
-  // generate all possibilities
+  // Generate all query parameters permutations.
   const allQueryParameters: QueryParameters[] = [];
   generateQueryParametersPermutations(
     allQueryParameters,
     parseResult.variableNames
   );
 
-  // evalute result for all parameter permutations
+  // Evaluate the result for all parameter permutations.
   const matchResult = parseResult.matchResult;
   const queryPermutations: QueryPermutation[] = [];
   allQueryParameters.forEach(queryParameters => {
