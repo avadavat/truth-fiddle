@@ -1,11 +1,33 @@
 import { extractVariables } from '../parser';
 
-/**
- * Given an expression, evaluates the result of the expression.
- * @param expression
- */
-export function evaluate(expression: string): boolean {
+function evaluateQueryWithParameters(
+  _query: string,
+  _parameters: QueryParameters
+) {
+  // TODO: Evaluate the parameters.
   return false;
+}
+
+/**
+ * Builds a QueryPermutation object for the given query given a list of
+ * the unique variable names in the query and their corresponding states.
+ */
+function constructQueryPermutation(
+  query: string,
+  variableNames: string[],
+  variableStates: boolean[]
+): QueryPermutation {
+  const queryParameters: QueryParameters = {};
+  for (let i = 0; i < variableNames.length; i += 1) {
+    queryParameters[variableNames[i]] = variableStates[i];
+  }
+
+  const queryPermutation: QueryPermutation = {
+    queryParameters,
+    value: evaluateQueryWithParameters(query, queryParameters);
+  }
+
+  return queryPermutation;
 }
 
 /**
@@ -15,47 +37,42 @@ export function evaluate(expression: string): boolean {
  *
  * Caution: This function runs exponentially relative to the number of variables.
  */
-function generateAllQueryParameters(
-  allQueryParameters: QueryParameters[],
+function generateQueryPermutationsHelper(
+  query: string,
+  queryPermutations: QueryPermutation[],
   variableNames: string[],
   variableStates: boolean[],
   variableIndex: number
 ): void {
   if (variableIndex === variableNames.length) {
     // We have a value for every variable, add this
-    // parameter permutation to the list.
-    const queryParameters: QueryParameters = {};
-    for (let i = 0; i < variableNames.length; i += 1) {
-      queryParameters[variableNames[i]] = variableStates[i];
-    }
-    allQueryParameters.push(queryParameters);
+    // permutation to the list.
+    queryPermutations.push(constructQueryPermutation(
+      query,
+      variableNames,
+      variableStates
+    ));
     return;
   }
 
   // Recursively generate all query parameters for both states
   // of the variable at the current index.
   variableStates[variableIndex] = false;
-  generateAllQueryParameters(
-    allQueryParameters,
+  generateQueryPermutationsHelper(
+    query,
+    queryPermutations,
     variableNames,
     variableStates,
     variableIndex + 1
   );
   variableStates[variableIndex] = true;
-  generateAllQueryParameters(
-    allQueryParameters,
+  generateQueryPermutationsHelper(
+    query,
+    queryPermutations,
     variableNames,
     variableStates,
     variableIndex + 1
   );
-}
-
-function evaluateQueryWithParameters(
-  _query: string,
-  _parameters: QueryParameters
-) {
-  // TODO: Evaluate the parameters.
-  return false;
 }
 
 /**
@@ -68,24 +85,15 @@ export function generateQueryPermutations(query: string): QueryPermutation[] {
   // build semantics eval function
 
   // generate all possibilities
-  let queryParameters: QueryParameters[] = [];
+  let queryPermutations: QueryPermutation[] = [];
   const variableNames = extractVariables(query);
   let variableStates: boolean[] = [];
-  generateAllQueryParameters(
-    queryParameters,
+  generateQueryPermutationsHelper(
+    query,
+    queryPermutations,
     variableNames,
     variableStates,
     /*variableIndex*/ 0
-  );
-
-  // evaluate each one
-  const queryPermutations: QueryPermutation[] = queryParameters.map(
-    parameters => {
-      return {
-        parameters,
-        value: evaluateQueryWithParameters(query, parameters),
-      };
-    }
   );
 
   // return result objects
@@ -101,7 +109,7 @@ export function generateQueryPermutations(query: string): QueryPermutation[] {
  * permutation, and the output of the query with those values.
  */
 export interface QueryPermutation {
-  parameters: QueryParameters;
+  queryParameters: QueryParameters;
   value: boolean;
 }
 
