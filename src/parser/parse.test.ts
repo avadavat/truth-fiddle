@@ -1,4 +1,4 @@
-import { parse, extractVariables } from './Parser';
+import { parse } from './parse';
 
 describe('simple error handling tests', () => {
   it('evaluates "p AND q" not to throw an error', () => {
@@ -33,7 +33,7 @@ describe('parenthesis error handling tests', () => {
 });
 
 describe('special keyword error handling tests', () => {
-  it('evalutes "p OR OR q" to throw an error', () => {
+  it('evaluates "p OR OR q" to throw an error', () => {
     expect(() => parse('p OR OR q')).toThrowError();
   });
 
@@ -41,13 +41,13 @@ describe('special keyword error handling tests', () => {
     expect(() => parse('not p')).not.toThrowError();
   });
 
-  // TODO: Reenable once we fix this grammar issue.
-  it.skip('evalutes "not" to throw an error', () => {
+  // TODO: Re-enable once we fix this grammar issue.
+  it.skip('evaluates "not" to throw an error', () => {
     expect(() => parse('not')).toThrowError();
   });
 
-  // TODO: Reenable once we fix this grammar issue.
-  it.skip('evalutes "( not ) or ( not )" to throw an error', () => {
+  // TODO: Re-enable once we fix this grammar issue.
+  it.skip('evaluates "( not ) or ( not )" to throw an error', () => {
     expect(() => parse('( not ) or ( not )')).toThrowError();
   });
 });
@@ -55,32 +55,5 @@ describe('special keyword error handling tests', () => {
 describe('expressions with invalid tokens', () => {
   it('evaluates "(p AND {q}) OR r" to throw an error', () => {
     expect(() => parse('(p AND {q}) OR r')).toThrowError();
-  });
-});
-
-describe('extractVariables tests', () => {
-  const exp1 = 'p AND q';
-  it(`extracts [p, q] from "${exp1}"`, () => {
-    expect(extractVariables(exp1)).toEqual(['p', 'q']);
-  });
-
-  const exp2 = 'p AND q OR r';
-  it(`extracts [p, q, r] from "${exp2}"`, () => {
-    expect(extractVariables(exp2)).toEqual(['p', 'q', 'r']);
-  });
-
-  const exp3 = ' ( p AND (q OR r))';
-  it(`extracts [p, q, r] from "${exp3}"`, () => {
-    expect(extractVariables(exp3)).toEqual(['p', 'q', 'r']);
-  });
-
-  const exp4 = ' ( p AND (q OR r) AND p OR q)';
-  it(`extracts [p, q, r] from "${exp4}"`, () => {
-    expect(extractVariables(exp4)).toEqual(['p', 'q', 'r']);
-  });
-
-  const exp5 = ' ( p xor (q OR r) xor p OR q)';
-  it(`extracts [p, q, r] from "${exp5}"`, () => {
-    expect(extractVariables(exp5)).toEqual(['p', 'q', 'r']);
   });
 });

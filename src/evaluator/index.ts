@@ -1,1 +1,1 @@
-export * from './Evaluator';
+export * from './generateQueryPermutations';

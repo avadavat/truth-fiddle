@@ -1,22 +1,10 @@
-// import { assertIsValidInput } from './ParserAssertions';
-import { truthGrammar } from './TruthGrammar';
-import { grammar } from 'ohm-js';
-
-const reservedKeywords = new Set(['and', 'not', 'or', 'xor']);
-
 // Splits by parentheses and white space.
 const splitRegex = new RegExp(/[ ()]+/g);
+const reservedKeywords = new Set(['and', 'not', 'or', 'xor']);
 
-// Grammar object that defines the rules for the language.
-const myGrammar = grammar(truthGrammar);
-
-export function parse(expression: string): void {
-  const m = myGrammar.match(expression);
-  if (m.failed()) {
-    throw new Error(`Parse failed ${m.shortMessage}`);
-  }
-}
-
+/**
+ * Returns a list of all the unique variable names in the given expression.
+ */
 export function extractVariables(expression: string): string[] {
   const words: string[] = expression.split(splitRegex);
 

@@ -1,4 +1,4 @@
-import { generateQueryPermutations } from './Evaluator';
+import { generateQueryPermutations } from './generateQueryPermutations';
 import { QueryPermutation } from './QueryPermutation';
 
 describe('simple query permutation tests', () => {

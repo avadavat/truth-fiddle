@@ -1,1 +1,2 @@
-export * from './Parser';
+export * from './extractVariables';
+export * from './parse';
