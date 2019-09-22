@@ -1,34 +1,29 @@
 import { QueryParameters, QueryPermutation } from './QueryPermutation';
 import { extractVariables } from '../parser';
 
-function evaluateQueryWithParameters(
-  _query: string,
-  _parameters: QueryParameters
-) {
-  // TODO: Evaluate the parameters.
-  return false;
-}
-
 /**
- * Builds a QueryPermutation object for the given query given a list of
- * the unique variable names in the query and their corresponding states.
+ * Generates all possible QueryPermutations given a query, that is, a list
+ * of all possible states for each unique variable in the query and the value
+ * from evaluating the given query with those states.
+ * @param query
  */
-function constructQueryPermutation(
-  query: string,
-  variableNames: string[],
-  variableStates: boolean[]
-): QueryPermutation {
-  const queryParameters: QueryParameters = {};
-  for (let i = 0; i < variableNames.length; i += 1) {
-    queryParameters[variableNames[i]] = variableStates[i];
-  }
+export function generateQueryPermutations(query: string): QueryPermutation[] {
+  // build semantics eval function
 
-  const queryPermutation: QueryPermutation = {
-    queryParameters,
-    value: evaluateQueryWithParameters(query, queryParameters),
-  };
+  // generate all possibilities
+  let queryPermutations: QueryPermutation[] = [];
+  const variableNames = extractVariables(query);
+  let variableStates: boolean[] = [];
+  generateQueryPermutationsHelper(
+    query,
+    queryPermutations,
+    variableNames,
+    variableStates,
+    /*variableIndex*/ 0
+  );
 
-  return queryPermutation;
+  // return result objects
+  return queryPermutations;
 }
 
 /**
@@ -75,26 +70,39 @@ function generateQueryPermutationsHelper(
 }
 
 /**
- * Generates all possible QueryPermutations given a query, that is, a list
- * of all possible states for each unique variable in the query and the value
- * from evaluating the given query with those states.
- * @param query
+ * Builds a QueryPermutation object for the given query given a list of
+ * the unique variable names in the query and their corresponding states.
  */
-export function generateQueryPermutations(query: string): QueryPermutation[] {
-  // build semantics eval function
+function constructQueryPermutation(
+  query: string,
+  variableNames: string[],
+  variableStates: boolean[]
+): QueryPermutation {
+  const queryParameters: QueryParameters = {};
+  for (let i = 0; i < variableNames.length; i += 1) {
+    queryParameters[variableNames[i]] = variableStates[i];
+  }
 
-  // generate all possibilities
-  let queryPermutations: QueryPermutation[] = [];
-  const variableNames = extractVariables(query);
-  let variableStates: boolean[] = [];
-  generateQueryPermutationsHelper(
-    query,
-    queryPermutations,
-    variableNames,
-    variableStates,
-    /*variableIndex*/ 0
-  );
+  const queryPermutation: QueryPermutation = {
+    queryParameters,
+    value: evaluateQueryWithParameters(query, queryParameters),
+  };
 
-  // return result objects
-  return queryPermutations;
+  return queryPermutation;
+}
+
+/**
+ * Evaluates the given query with the given parameters.
+ *
+ * TODO: Create the Semantics object for TruthGrammar with the given parameters
+ * and evaluate.
+ * @param _query
+ * @param _parameters
+ */
+function evaluateQueryWithParameters(
+  _query: string,
+  _parameters: QueryParameters
+) {
+  // TODO: Evaluate the parameters.
+  return false;
 }

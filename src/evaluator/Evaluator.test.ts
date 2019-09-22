@@ -1,4 +1,5 @@
-import { generateQueryPermutations, QueryPermutation } from './Evaluator';
+import { generateQueryPermutations } from './Evaluator';
+import { QueryPermutation } from './QueryPermutation';
 
 describe('simple query permutation tests', () => {
   // TODO: Enable this test once we correctly evaluate value.
