@@ -24,8 +24,8 @@ function constructQueryPermutation(
 
   const queryPermutation: QueryPermutation = {
     queryParameters,
-    value: evaluateQueryWithParameters(query, queryParameters);
-  }
+    value: evaluateQueryWithParameters(query, queryParameters),
+  };
 
   return queryPermutation;
 }
@@ -47,11 +47,9 @@ function generateQueryPermutationsHelper(
   if (variableIndex === variableNames.length) {
     // We have a value for every variable, add this
     // permutation to the list.
-    queryPermutations.push(constructQueryPermutation(
-      query,
-      variableNames,
-      variableStates
-    ));
+    queryPermutations.push(
+      constructQueryPermutation(query, variableNames, variableStates)
+    );
     return;
   }
 

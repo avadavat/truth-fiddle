@@ -1,33 +1,55 @@
-import { generateQueryPermutations } from './Evaluator';
+import { generateQueryPermutations, QueryPermutation } from './Evaluator';
 
-// describe('simple expression tests', () => {
-//   it('evaluates "TRUE AND TRUE" to be TRUE', () => {
-//     expect(evaluate('TRUE AND TRUE')).toBe(true);
-//   });
+describe('simple query permutation tests', () => {
+  // TODO: Enable this test once we correctly evaluate value.
+  it.skip('generates correct query permutations for "p and q"', () => {
+    const expectedResult: QueryPermutation[] = [
+      {
+        queryParameters: {
+          p: false,
+          q: false,
+        },
+        value: false,
+      },
+      {
+        queryParameters: {
+          p: false,
+          q: true,
+        },
+        value: false,
+      },
+      {
+        queryParameters: {
+          p: true,
+          q: false,
+        },
+        value: false,
+      },
+      {
+        queryParameters: {
+          p: true,
+          q: true,
+        },
+        value: true,
+      },
+    ];
 
-//   it('evaluates "TRUE AND FALSE OR TRUE" to be TRUE', () => {
-//     expect(evaluate('TRUE AND FALSE OR TRUE')).toBe(true);
-//   });
+    expect(generateQueryPermutations('p and q')).toBe(expectedResult);
+  });
+});
 
-//   it('evaluates "TRUE AND FALSE" to be FALSE', () => {
-//     expect(evaluate('TRUE AND FALSE')).toBe(false);
-//   });
+describe('generates correct number of permutations', () => {
+  it('generates 4 permutations for 2 unique variables', () => {
+    expect(generateQueryPermutations('p and q')).toHaveLength(4);
+  });
 
-//   it('evaluates "TRUE OR FALSE" to be TRUE', () => {
-//     expect(evaluate('TRUE OR FALSE')).toBe(true);
-//   });
-// });
+  it('generates 16 permutations for 4 unique variables', () => {
+    expect(generateQueryPermutations('p and q or r xor s')).toHaveLength(16);
+  });
 
-// describe('expressions with parenthesis', () => {
-//   it('evaluates "(FALSE AND TRUE) OR TRUE" to be TRUE', () => {
-//     expect(evaluate('(FALSE AND TRUE) OR TRUE')).toBe(true);
-//   });
-
-//   it('evaluates "(FALSE AND (TRUE OR TRUE))" to be FALSE', () => {
-//     expect(evaluate('(FALSE AND (TRUE OR TRUE))')).toBe(false);
-//   });
-
-//   it('evaluates "(TRUE AND (FALSE OR TRUE))" to be TRUE', () => {
-//     expect(evaluate('(TRUE AND (FALSE OR TRUE))')).toBe(true);
-//   });
-// });
+  it('generates 16 permutations for 4 unique variables', () => {
+    expect(
+      generateQueryPermutations('p and q or r xor s or p or q')
+    ).toHaveLength(16);
+  });
+});
