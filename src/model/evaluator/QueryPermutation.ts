@@ -7,6 +7,8 @@ import { QueryParameters } from './QueryParameters';
  *
  * This contains a map of the variable names to their state in this
  * permutation, and the output of the query with those values.
+ *
+ * TODO: Rename this to better reflect its functionality.
  */
 export interface QueryPermutation {
   queryParameters: QueryParameters;

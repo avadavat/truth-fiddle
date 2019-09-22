@@ -13,17 +13,24 @@ import { MatchResult } from 'ohm-js';
 export function generateQueryPermutations(
   parseResult: ParseResult
 ): QueryPermutation[] {
-  // build semantics eval function
-
   // generate all possibilities
-  let queryParameters: QueryParameters[] = [];
+  const allQueryParameters: QueryParameters[] = [];
   generateQueryParametersPermutations(
-    queryParameters,
+    allQueryParameters,
     parseResult.variableNames
   );
 
-  // return result objects
-  return [];
+  // evalute result for all parameter permutations
+  const matchResult = parseResult.matchResult;
+  const queryPermutations: QueryPermutation[] = [];
+  allQueryParameters.forEach(queryParameters => {
+    queryPermutations.push({
+      queryParameters,
+      value: evaluateQueryWithParameters(matchResult, queryParameters),
+    });
+  });
+
+  return queryPermutations;
 }
 
 /**
@@ -72,7 +79,7 @@ function generateQueryParametersPermutations(
 function evaluateQueryWithParameters(
   matchResult: MatchResult,
   queryParameters: QueryParameters
-) {
+): boolean {
   const semantics = createSemantics(queryParameters);
   return semantics(matchResult).evaluate();
 }
