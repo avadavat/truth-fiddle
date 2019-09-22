@@ -1,4 +1,4 @@
-export const truthGrammar = `
+export const grammarRules = `
 Truth {
 	Exp
     = NotExp
