@@ -22,14 +22,19 @@ export const AppBody = React.memo(function AppBody() {
   };
 
   React.useEffect(() => {
+    parseQuery();
+  }, [query]);
+
+  const parseQuery = () => {
     try {
+      // Parse the query and extract its variables.
       setVariables(parse(query));
       setMessage('');
     } catch (e) {
       // TODO: Make error message more readable to the user.
       setMessage(e.message);
     }
-  }, [query]);
+  };
 
   React.useEffect(() => {
     // TODO: Provide a callback to evaluate the expression
