@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { QueryPermutation } from '../model/evaluator/QueryPermutation';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,8 +39,25 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export function SimpleTable() {
+interface TruthTableProps {
+  result: QueryPermutation[];
+}
+
+interface TruthTableData {}
+
+interface TableRow {}
+
+const convertEvaluatorToTableData = (
+  queryPermutations: QueryPermutation[]
+): TruthTableData => {
+  return {};
+};
+
+export const TruthTable = React.memo(function TruthTable(
+  props: TruthTableProps
+) {
   const classes = useStyles();
+  const tableData: TruthTableData = convertEvaluatorToTableData(props.result);
 
   return (
     <Paper className={classes.root}>
@@ -69,4 +87,4 @@ export function SimpleTable() {
       </Table>
     </Paper>
   );
-}
+});

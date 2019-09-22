@@ -1,8 +1,9 @@
 import React from 'react';
 import { InputBox } from './InputBox';
-import { SimpleTable } from './SimpleTable';
+import { TruthTable } from './TruthTable';
 import { parse, ParseResult } from '../model/parser';
 import { evaluate } from '../model/evaluator';
+import { QueryPermutation } from '../model/evaluator/QueryPermutation';
 
 // Expression the user sees when initially loading the application.
 const initialExpression = 'p and q';
@@ -13,6 +14,7 @@ const initialExpression = 'p and q';
  */
 export const AppBody = React.memo(function AppBody() {
   const [query, setQuery] = React.useState<string>(initialExpression);
+  const [result, setResult] = React.useState<QueryPermutation[]>([]);
   const [message, setMessage] = React.useState<string>('');
 
   const onQueryChange = (newQuery: string) => {
@@ -25,8 +27,9 @@ export const AppBody = React.memo(function AppBody() {
 
       // Parse the query and extract its variables.
       const parseResult: ParseResult = parse(query);
-      const queryPermutations = evaluate(parseResult);
-      console.log(queryPermutations);
+      const evaluateResult: QueryPermutation[] = evaluate(parseResult);
+      // TODO: Populate the table.
+      setResult(evaluateResult);
     } catch (e) {
       // TODO: Make error message more readable to the user.
       setMessage(e.message);
@@ -37,7 +40,7 @@ export const AppBody = React.memo(function AppBody() {
     <>
       <InputBox onQueryChange={onQueryChange} />
       <div>{message}</div>
-      <SimpleTable />
+      <TruthTable result={result} />
     </>
   );
 });
