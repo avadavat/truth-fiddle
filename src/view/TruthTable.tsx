@@ -21,67 +21,75 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 interface TruthTableProps {
-  result: QueryPermutation[];
+  rows: QueryPermutation[];
 }
 
-interface TruthTableData {}
+interface TruthTableRowProps {
+  row: QueryPermutation;
+}
 
-interface TableRow {}
+export const TruthTableRow = React.memo(function TruthTableRow(
+  props: TruthTableRowProps
+) {
+  const { row } = props;
+  const cells: JSX.Element[] = [];
+  row.queryParameters.forEach((value: boolean, variableName: string) => {
+    cells.push(<TruthTableCell id={variableName} text={String(value)} />);
+  });
 
-const convertEvaluatorToTableData = (
-  queryPermutations: QueryPermutation[]
-): TruthTableData => {
-  return {};
-};
+  cells.push(<TruthTableCell id={'result'} text={String(row.value)} />);
+
+  return <TableRow>{cells}</TableRow>;
+});
+
+interface TruthTableHeaderProps {
+  row: QueryPermutation;
+}
+
+export const TruthTableHeader = React.memo(function TruthTableHeader(
+  props: TruthTableHeaderProps
+) {
+  const { row } = props;
+  const cells: JSX.Element[] = [];
+  row.queryParameters.forEach((_value: boolean, variableName: string) => {
+    cells.push(<TruthTableCell text={variableName} />);
+  });
+
+  cells.push(<TruthTableCell text={'Result'} />);
+
+  return <TableRow>{cells}</TableRow>;
+});
+
+interface TruthTableCellProps {
+  id?: string;
+  text: string;
+}
+
+export const TruthTableCell = React.memo(function TruthTableCell(
+  props: TruthTableCellProps
+) {
+  const { text } = props;
+  const key = props.id || text;
+
+  return <TableCell key={key}>{text}</TableCell>;
+});
 
 export const TruthTable = React.memo(function TruthTable(
   props: TruthTableProps
 ) {
   const classes = useStyles();
-  const tableData: TruthTableData = convertEvaluatorToTableData(props.result);
+  const { rows: result } = props;
 
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
+          {result.length > 0 && <TruthTableHeader row={result[0]} />}
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
+          {result.map((queryPermutation, index) => (
+            <TruthTableRow row={queryPermutation} key={index} />
           ))}
         </TableBody>
       </Table>

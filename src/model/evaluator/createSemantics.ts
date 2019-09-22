@@ -32,7 +32,7 @@ export function createSemantics(queryParameters: QueryParameters) {
     },
     ident: function(first, remaining) {
       const variableName = first.sourceString + remaining.sourceString;
-      return queryParameters[variableName];
+      return queryParameters.get(variableName);
     },
   });
   return semantics;

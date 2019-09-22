@@ -40,7 +40,7 @@ export const AppBody = React.memo(function AppBody() {
     <>
       <InputBox onQueryChange={onQueryChange} />
       <div>{message}</div>
-      <TruthTable result={result} />
+      <TruthTable rows={result} />
     </>
   );
 });
