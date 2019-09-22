@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputBox } from './InputBox';
 import { SimpleTable } from './SimpleTable';
-import { parse } from '../parser';
+import { parse, extractVariables } from '../parser';
 import { generateQueryPermutations } from '../evaluator';
 
 // Expression the user sees when initially loading the application.
@@ -13,9 +13,6 @@ const initialExpression = 'p and q';
  */
 export const AppBody = React.memo(function AppBody() {
   const [query, setQuery] = React.useState<string>(initialExpression);
-  const [variables, setVariables] = React.useState<string[]>(
-    parse(initialExpression)
-  );
   const [message, setMessage] = React.useState<string>('');
 
   const onQueryChange = (newQuery: string) => {
@@ -29,20 +26,15 @@ export const AppBody = React.memo(function AppBody() {
   const parseQuery = () => {
     try {
       // Parse the query and extract its variables.
-      setVariables(parse(query));
+      parse(query);
       setMessage('');
+      const queryPermutations = generateQueryPermutations(query);
+      console.log(queryPermutations);
     } catch (e) {
       // TODO: Make error message more readable to the user.
       setMessage(e.message);
     }
   };
-
-  React.useEffect(() => {
-    // TODO: Provide a callback to evaluate the expression
-    // TODO: Populate the table
-    const queryPermutations = generateQueryPermutations(query, variables);
-    console.log(queryPermutations);
-  }, [variables]);
 
   return (
     <>

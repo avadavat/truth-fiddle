@@ -1,3 +1,5 @@
+import { extractVariables } from '../parser';
+
 /**
  * Given an expression, evaluates the result of the expression.
  * @param expression
@@ -63,14 +65,12 @@ function evaluateQueryWithParameters(
  * @param query
  * @param variableNames
  */
-export function generateQueryPermutations(
-  query: string,
-  variableNames: string[]
-): QueryPermutation[] {
+export function generateQueryPermutations(query: string): QueryPermutation[] {
   // build semantics eval function
 
   // generate all possibilities
   let queryParameters: QueryParameters[] = [];
+  const variableNames = extractVariables(query);
   let variableStates: boolean[] = [];
   generateAllQueryParameters(
     queryParameters,
