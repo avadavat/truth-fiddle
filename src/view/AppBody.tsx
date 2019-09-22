@@ -2,6 +2,7 @@ import React from 'react';
 import { InputBox } from './InputBox';
 import { SimpleTable } from './SimpleTable';
 import { parse } from '../parser';
+import { generateQueryPermutations } from '../evaluator';
 
 // Expression the user sees when initially loading the application.
 const initialExpression = 'p and q';
@@ -39,7 +40,8 @@ export const AppBody = React.memo(function AppBody() {
   React.useEffect(() => {
     // TODO: Provide a callback to evaluate the expression
     // TODO: Populate the table
-    console.log('variables:', variables);
+    const queryPermutations = generateQueryPermutations(query, variables);
+    console.log(queryPermutations);
   }, [variables]);
 
   return (
