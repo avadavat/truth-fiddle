@@ -7,8 +7,10 @@ const reservedKeywords = new Set(['and', 'not', 'or', 'xor']);
 // Splits by parentheses and white space.
 const splitRegex = new RegExp(/[ ()]+/g);
 
+// Grammar object that defines the rules for the language.
+const myGrammar = grammar(truthGrammar);
+
 export function parse(expression: string): string[] {
-  const myGrammar = grammar(truthGrammar);
   const m = myGrammar.match(expression);
   if (m.failed()) {
     throw new Error(`Parse failed ${m.message}`);
