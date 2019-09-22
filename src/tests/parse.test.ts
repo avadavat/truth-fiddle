@@ -1,4 +1,4 @@
-import { parse } from '../parser/parse';
+import { parse } from '../model/parser/parse';
 
 describe('simple error handling tests', () => {
   it('evaluates "p AND q" not to throw an error', () => {

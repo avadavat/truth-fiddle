@@ -1,4 +1,4 @@
-import { extractVariables } from '../parser/extractVariables';
+import { extractVariables } from '../model/parser/extractVariables';
 
 describe('extractVariables tests', () => {
   const exp1 = 'p AND q';

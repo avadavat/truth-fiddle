@@ -1,8 +1,8 @@
 import React from 'react';
 import { InputBox } from './InputBox';
 import { SimpleTable } from './SimpleTable';
-import { parse } from '../parser';
-import { generateQueryPermutations } from '../evaluator';
+import { parse } from '../model/parser';
+import { generateQueryPermutations } from '../model/evaluator';
 
 // Expression the user sees when initially loading the application.
 const initialExpression = 'p and q';
