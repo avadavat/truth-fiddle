@@ -1,5 +1,5 @@
 import { QueryParameters, QueryPermutation } from './QueryPermutation';
-import { extractVariables } from '../parser';
+import { extractVariables, ParseResult } from '../parser';
 
 /**
  * Generates all possible QueryPermutations given a query, that is, a list
@@ -7,17 +7,17 @@ import { extractVariables } from '../parser';
  * from evaluating the given query with those states.
  * @param query
  */
-export function generateQueryPermutations(query: string): QueryPermutation[] {
+export function generateQueryPermutations(
+  parseResult: ParseResult
+): QueryPermutation[] {
   // build semantics eval function
 
   // generate all possibilities
   let queryPermutations: QueryPermutation[] = [];
-  const variableNames = extractVariables(query);
   let variableStates: boolean[] = [];
   generateQueryPermutationsHelper(
-    query,
     queryPermutations,
-    variableNames,
+    parseResult.variableNames,
     variableStates,
     /*variableIndex*/ 0
   );
@@ -34,7 +34,6 @@ export function generateQueryPermutations(query: string): QueryPermutation[] {
  * Caution: This function runs exponentially relative to the number of variables.
  */
 function generateQueryPermutationsHelper(
-  query: string,
   queryPermutations: QueryPermutation[],
   variableNames: string[],
   variableStates: boolean[],
@@ -44,7 +43,7 @@ function generateQueryPermutationsHelper(
     // We have a value for every variable, add this
     // permutation to the list.
     queryPermutations.push(
-      constructQueryPermutation(query, variableNames, variableStates)
+      constructQueryPermutation(variableNames, variableStates)
     );
     return;
   }
@@ -53,7 +52,6 @@ function generateQueryPermutationsHelper(
   // of the variable at the current index.
   variableStates[variableIndex] = false;
   generateQueryPermutationsHelper(
-    query,
     queryPermutations,
     variableNames,
     variableStates,
@@ -61,7 +59,6 @@ function generateQueryPermutationsHelper(
   );
   variableStates[variableIndex] = true;
   generateQueryPermutationsHelper(
-    query,
     queryPermutations,
     variableNames,
     variableStates,
@@ -74,7 +71,6 @@ function generateQueryPermutationsHelper(
  * the unique variable names in the query and their corresponding states.
  */
 function constructQueryPermutation(
-  query: string,
   variableNames: string[],
   variableStates: boolean[]
 ): QueryPermutation {
@@ -85,7 +81,7 @@ function constructQueryPermutation(
 
   const queryPermutation: QueryPermutation = {
     queryParameters,
-    value: evaluateQueryWithParameters(query, queryParameters),
+    value: evaluateQueryWithParameters(queryParameters),
   };
 
   return queryPermutation;
@@ -99,10 +95,7 @@ function constructQueryPermutation(
  * @param _query
  * @param _parameters
  */
-function evaluateQueryWithParameters(
-  _query: string,
-  _parameters: QueryParameters
-) {
+function evaluateQueryWithParameters(_parameters: QueryParameters) {
   // TODO: Evaluate the parameters.
   return false;
 }

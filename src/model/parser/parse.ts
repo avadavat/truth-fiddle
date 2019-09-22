@@ -1,8 +1,18 @@
 import { truthGrammar } from '../grammar';
+import { MatchResult } from 'ohm-js';
+import { extractVariables } from './extractVariables';
 
-export function parse(expression: string): void {
-  const m = truthGrammar.match(expression);
-  if (m.failed()) {
-    throw new Error(`Parse failed ${m.shortMessage}`);
+export interface ParseResult {
+  matchResult: MatchResult;
+  variableNames: string[];
+}
+
+export function parse(query: string): ParseResult {
+  const matchResult = truthGrammar.match(query);
+  if (matchResult.failed()) {
+    throw new Error(`Parse failed ${matchResult.shortMessage}`);
   }
+  const variableNames = extractVariables(query);
+  const parseResult: ParseResult = { matchResult, variableNames };
+  return parseResult;
 }

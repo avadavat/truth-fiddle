@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputBox } from './InputBox';
 import { SimpleTable } from './SimpleTable';
-import { parse } from '../model/parser';
+import { parse, ParseResult } from '../model/parser';
 import { generateQueryPermutations } from '../model/evaluator';
 
 // Expression the user sees when initially loading the application.
@@ -21,10 +21,11 @@ export const AppBody = React.memo(function AppBody() {
 
   React.useEffect(() => {
     try {
-      // Parse the query and extract its variables.
-      parse(query);
       setMessage('');
-      const queryPermutations = generateQueryPermutations(query);
+
+      // Parse the query and extract its variables.
+      const parseResult: ParseResult = parse(query);
+      const queryPermutations = generateQueryPermutations(parseResult);
       console.log(queryPermutations);
     } catch (e) {
       // TODO: Make error message more readable to the user.
