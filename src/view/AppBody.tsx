@@ -12,7 +12,9 @@ const initialExpression = 'p and q';
  */
 export const AppBody = React.memo(function AppBody() {
   const [query, setQuery] = React.useState<string>(initialExpression);
-  const [result, setResult] = React.useState<QueryPermutation[]>([]);
+  const [result, setResult] = React.useState<QueryPermutation[]>(
+    evaluate(parse(initialExpression))
+  );
   const [message, setMessage] = React.useState<string>('');
 
   const onQueryChange = (newQuery: string) => {
@@ -35,7 +37,7 @@ export const AppBody = React.memo(function AppBody() {
 
   return (
     <>
-      <InputBox onQueryChange={onQueryChange} />
+      <InputBox onQueryChange={onQueryChange} query={query} />
       <div>{message}</div>
       <TruthTable rows={result} />
     </>

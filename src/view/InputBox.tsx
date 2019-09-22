@@ -9,6 +9,7 @@ const inputBoxStyle: React.CSSProperties = {
 };
 
 interface InputBoxProps {
+  query: string;
   onQueryChange: (query: string) => void;
 }
 
@@ -16,10 +17,11 @@ interface InputBoxProps {
  * InputBox is where the user can enter their boolean expression.
  */
 export const InputBox = React.memo(function InputBox(props: InputBoxProps) {
+  const { query } = props;
+
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value;
-    props.onQueryChange(query);
+    props.onQueryChange(event.target.value);
   };
 
-  return <input style={inputBoxStyle} onChange={onChange} />;
+  return <input style={inputBoxStyle} onChange={onChange} value={query} />;
 });
