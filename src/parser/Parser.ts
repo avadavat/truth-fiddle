@@ -1,16 +1,23 @@
-import { assertIsValidInput } from './ParserAssertions';
+// import { assertIsValidInput } from './ParserAssertions';
+import { truthGrammar } from './TruthGrammar';
+import { grammar } from 'ohm-js';
 
-const reservedKeywords = new Set(['and', 'not', 'or']);
+const reservedKeywords = new Set(['and', 'not', 'or', 'xor']);
 
 // Splits by parentheses and white space.
 const splitRegex = new RegExp(/[ ()]+/g);
 
 export function parse(expression: string): string[] {
-  assertIsValidInput(expression);
+  const myGrammar = grammar(truthGrammar);
+  const m = myGrammar.match(expression);
+  if (m.failed()) {
+    throw new Error(`Parse failed ${m.message}`);
+  }
+
   return extractVariables(expression);
 }
 
-function extractVariables(expression: string): string[] {
+export function extractVariables(expression: string): string[] {
   const words: string[] = expression.split(splitRegex);
 
   // Any word that isn't a reserved keyword is a variable.
