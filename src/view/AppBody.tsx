@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputBox } from './InputBox';
 import { SimpleTable } from './SimpleTable';
-import { parse, extractVariables } from '../parser';
+import { parse } from '../parser';
 import { generateQueryPermutations } from '../evaluator';
 
 // Expression the user sees when initially loading the application.
@@ -20,10 +20,6 @@ export const AppBody = React.memo(function AppBody() {
   };
 
   React.useEffect(() => {
-    parseQuery();
-  }, [query]);
-
-  const parseQuery = () => {
     try {
       // Parse the query and extract its variables.
       parse(query);
@@ -34,7 +30,7 @@ export const AppBody = React.memo(function AppBody() {
       // TODO: Make error message more readable to the user.
       setMessage(e.message);
     }
-  };
+  }, [query]);
 
   return (
     <>
