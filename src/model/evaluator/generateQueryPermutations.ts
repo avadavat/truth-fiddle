@@ -1,5 +1,5 @@
 import { QueryParameters, QueryPermutation } from './QueryPermutation';
-import { extractVariables, ParseResult } from '../parser';
+import { ParseResult } from '../parser';
 
 /**
  * Generates all possible QueryPermutations given a query, that is, a list
