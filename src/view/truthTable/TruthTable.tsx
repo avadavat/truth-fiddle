@@ -5,7 +5,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import Paper from '@material-ui/core/Paper';
 import { QueryPermutation } from '../../model';
-import { TruthTableHeader } from './TruthTableHeader';
 import { TruthTableRow } from './TruthTableRow';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,11 +34,17 @@ export const TruthTable = React.memo(function TruthTable(
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
-          {result.length > 0 && <TruthTableHeader row={result[0]} />}
+          {result.length > 0 && (
+            <TruthTableRow row={result[0]} isHeader={true} />
+          )}
         </TableHead>
         <TableBody>
           {result.map((queryPermutation, index) => (
-            <TruthTableRow row={queryPermutation} key={index} />
+            <TruthTableRow
+              row={queryPermutation}
+              isHeader={false}
+              key={index}
+            />
           ))}
         </TableBody>
       </Table>
