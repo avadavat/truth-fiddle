@@ -15,6 +15,7 @@ export const AppBody = React.memo(function AppBody() {
   const [variables, setVariables] = React.useState<string[]>(
     parse(initialExpression)
   );
+  const [message, setMessage] = React.useState<string>('');
 
   const onQueryChange = (newQuery: string) => {
     setQuery(newQuery);
@@ -23,9 +24,10 @@ export const AppBody = React.memo(function AppBody() {
   React.useEffect(() => {
     try {
       setVariables(parse(query));
+      setMessage('');
     } catch (e) {
-      // TODO: Display readable error message to the user.
-      console.log(e.message);
+      // TODO: Make error message more readable to the user.
+      setMessage(e.message);
     }
   }, [query]);
 
@@ -38,6 +40,7 @@ export const AppBody = React.memo(function AppBody() {
   return (
     <>
       <InputBox onQueryChange={onQueryChange} />
+      <div>{message}</div>
       <SimpleTable />
     </>
   );

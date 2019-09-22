@@ -13,7 +13,7 @@ const myGrammar = grammar(truthGrammar);
 export function parse(expression: string): string[] {
   const m = myGrammar.match(expression);
   if (m.failed()) {
-    throw new Error(`Parse failed ${m.message}`);
+    throw new Error(`Parse failed ${m.shortMessage}`);
   }
 
   return extractVariables(expression);
