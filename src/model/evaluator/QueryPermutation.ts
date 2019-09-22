@@ -1,3 +1,5 @@
+import { QueryParameters } from './QueryParameters';
+
 /**
  * QueryPermutation represents one permutation of the possible results
  * of the current query. For example, if the query is 'p and q', one
@@ -10,8 +12,3 @@ export interface QueryPermutation {
   queryParameters: QueryParameters;
   value: boolean;
 }
-
-/**
- * A map of the variable names in a query to their values
- */
-export type QueryParameters = { [variableName: string]: boolean };

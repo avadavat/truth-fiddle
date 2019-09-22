@@ -1,6 +1,5 @@
 import { truthGrammar } from '../grammar';
-import { QueryParameters } from './QueryPermutation';
-import { MatchResult } from 'ohm-js';
+import { QueryParameters } from './QueryParameters';
 
 /**
  * Creates a semantics object with our truth grammar for the given query
