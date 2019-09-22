@@ -56,6 +56,13 @@ function evaluateQueryWithParameters(
   return false;
 }
 
+/**
+ * Generates all possible QueryPermutations given a query and the unique
+ * variables names in it, that is, a list of all possible states for each
+ * variable and the value from evaluating the given query with those states.
+ * @param query
+ * @param variableNames
+ */
 export function generateQueryPermutations(
   query: string,
   variableNames: string[]
