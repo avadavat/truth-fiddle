@@ -1,6 +1,6 @@
 export const grammarRules = `
 Truth {
-	Exp
+  Exp
     = NotExp
     | OrExp
     | AndExp
