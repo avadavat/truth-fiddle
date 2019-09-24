@@ -11,6 +11,7 @@
     "@types/uuid": "^3.4.5",
     "express": "^4.17.1",
     "ohm-js": "^0.14.0",
+    "pm2": "^3.5.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
@@ -18,10 +19,14 @@
     "uuid": "^3.3.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "server": "node server.js",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start": "pm2 start process.json",
+    "stop": "pm2 stop process.json",
+    "restart": "pm2 restart all"
   },
   "eslintConfig": {
     "extends": "react-app"
