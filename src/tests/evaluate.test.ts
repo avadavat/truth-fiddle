@@ -6,31 +6,19 @@ describe('simple query permutation tests', () => {
   it('generates correct query permutations for "p and q"', () => {
     const expectedResult: QueryPermutation[] = [
       {
-        queryParameters: {
-          p: false,
-          q: false,
-        },
+        queryParameters: new Map<string, boolean>([['p', false], ['q', false]]),
         value: false,
       },
       {
-        queryParameters: {
-          p: false,
-          q: true,
-        },
+        queryParameters: new Map<string, boolean>([['p', false], ['q', true]]),
         value: false,
       },
       {
-        queryParameters: {
-          p: true,
-          q: false,
-        },
+        queryParameters: new Map<string, boolean>([['p', true], ['q', false]]),
         value: false,
       },
       {
-        queryParameters: {
-          p: true,
-          q: true,
-        },
+        queryParameters: new Map<string, boolean>([['p', true], ['q', true]]),
         value: true,
       },
     ];
