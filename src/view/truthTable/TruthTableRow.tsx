@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
 import { QueryPermutation } from '../../model';
 import { TruthTableCell } from './TruthTableCell';
