@@ -1,7 +1,7 @@
 import { QueryPermutation } from './QueryPermutation';
 import { QueryParameters, constructQueryParameters } from './QueryParameters';
 import { ParseResult } from '../parser';
-import { createSemantics, createSemantics2 } from './createSemantics';
+import { createSemantics } from './createSemantics';
 import { MatchResult } from 'ohm-js';
 
 /**
@@ -18,15 +18,37 @@ export function evaluate(parseResult: ParseResult): QueryPermutation[] {
   );
 
   // Evaluate the result for all parameter permutations.
-  const matchResult = parseResult.matchResult;
+  const queryPermutations: QueryPermutation[] = evaluateQueryParameters(
+    parseResult.matchResult,
+    allQueryParameters
+  );
+
+  return queryPermutations;
+}
+
+/**
+ * Evaluates the result and creates a QueryPermutation object for each QueryParameters object
+ * given.
+ * @param matchResult - The parsed match result, i.e. the function in which to plug in the query parameters.
+ * @param allQueryParameters - The list of QueryParameters with which to evaluate the expression.
+ */
+function evaluateQueryParameters(
+  matchResult: MatchResult,
+  allQueryParameters: QueryParameters[]
+): QueryPermutation[] {
   const queryPermutations: QueryPermutation[] = [];
 
-  const semantics2 = createSemantics2(matchResult, allQueryParameters);
+  // Generates a function to evaluate the i-th query parameter
+  const evaluateSemantics: (index: number) => boolean = createSemantics(
+    matchResult,
+    allQueryParameters
+  );
+
   for (let i = 0; i < allQueryParameters.length; i += 1) {
     const queryParameters = allQueryParameters[i];
     queryPermutations.push({
       queryParameters,
-      value: semantics2(i),
+      value: evaluateSemantics(i),
     });
   }
 
@@ -71,15 +93,4 @@ function generateQueryParametersPermutations(
     variableStates,
     variableIndex + 1
   );
-}
-
-/**
- * Evaluates the query with the given match result and parameters.
- */
-function evaluateQueryWithParameters(
-  matchResult: MatchResult,
-  queryParameters: QueryParameters
-): boolean {
-  const semantics = createSemantics(queryParameters);
-  return semantics(matchResult).evaluate();
 }
