@@ -1,7 +1,7 @@
 import { QueryPermutation } from './QueryPermutation';
 import { QueryParameters, constructQueryParameters } from './QueryParameters';
 import { ParseResult } from '../parser';
-import { createSemantics } from './createSemantics';
+import { createSemantics, createSemantics2 } from './createSemantics';
 import { MatchResult } from 'ohm-js';
 
 /**
@@ -20,12 +20,15 @@ export function evaluate(parseResult: ParseResult): QueryPermutation[] {
   // Evaluate the result for all parameter permutations.
   const matchResult = parseResult.matchResult;
   const queryPermutations: QueryPermutation[] = [];
-  allQueryParameters.forEach(queryParameters => {
+
+  const semantics2 = createSemantics2(matchResult, allQueryParameters);
+  for (let i = 0; i < allQueryParameters.length; i += 1) {
+    const queryParameters = allQueryParameters[i];
     queryPermutations.push({
       queryParameters,
-      value: evaluateQueryWithParameters(matchResult, queryParameters),
+      value: semantics2(i),
     });
-  });
+  }
 
   return queryPermutations;
 }
