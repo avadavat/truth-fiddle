@@ -20,7 +20,7 @@ export const TruthTableRow = React.memo(function TruthTableRow(
     cells.push(
       <TruthTableCell
         key={variableName}
-        text={isHeader ? variableName : String(value)}
+        text={isHeader ? variableName : (value ? 'T' : 'F')}
       />
     );
   });
@@ -29,7 +29,7 @@ export const TruthTableRow = React.memo(function TruthTableRow(
   cells.push(
     <TruthTableCell
       key={uuid()}
-      text={isHeader ? resultString : String(row.value)}
+      text={isHeader ? resultString : (row.value ? 'T' : 'F')}
     />
   );
 
