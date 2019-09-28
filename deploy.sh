@@ -1,7 +1,7 @@
 #!/bin/bash
 
-git fetch origin master
-git checkout --force master
+git fetch --all
+git reset --hard origin/master
 npm install
 npm run build
 npm restart
