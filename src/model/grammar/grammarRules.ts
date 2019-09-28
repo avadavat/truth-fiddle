@@ -9,20 +9,20 @@ Truth {
     | ident
        
   NotExp
-    = "not" Exp
-    | "NOT" Exp
+    = "not " Exp
+    | "NOT " Exp
   
   OrExp
-    = Exp "or" Exp
-    | Exp "OR" Exp
+    = Exp "or " Exp
+    | Exp "OR " Exp
   
   AndExp
-    = Exp "and" Exp
-    | Exp "AND" Exp
+    = Exp "and " Exp
+    | Exp "AND " Exp
   
-  XorExp
-    = Exp "xor" Exp
-    | Exp "XOR" Exp
+    XorExp
+    = Exp "xor " Exp
+    | Exp "XOR " Exp
   
   ParenExp
     = "(" Exp ")"
