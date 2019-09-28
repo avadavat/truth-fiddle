@@ -20,7 +20,7 @@ Truth {
     = Exp "and " Exp
     | Exp "AND " Exp
   
-    XorExp
+  XorExp
     = Exp "xor " Exp
     | Exp "XOR " Exp
   
