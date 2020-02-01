@@ -3,17 +3,163 @@ import { evaluate } from '../model/evaluator/evaluate';
 import { parse } from '../model/parser';
 
 describe('simple query permutation tests', () => {
-  const testCases = [
+  const testCases: {expression: string, truthTable: any[]}[] = [
     {
-      expression:'p and q', 
+      expression: 'p and q', 
       truthTable: [
-          ['p', 'q'],
-          [false, false, false],
-          [false, true, false],
-          [true, false, false],
-          [true, true, true]
-        ]
-    }
+        ['p', 'q'],
+        [false, false, false],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true]
+      ]
+    },
+    // TODO: re-enable after fix
+    // {
+    //   expression: 'not p and q',
+    //   truthTable: [
+    //     ['p', 'q'],
+    //     [false, false, false],
+    //     [false, true, true],
+    //     [true, false, false],
+    //     [true, true, false]
+    //   ]
+    // },
+    {
+      expression: 'p or q',
+      truthTable: [
+        ['p', 'q'],
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, true]
+      ]
+    },
+    // TODO: re-enable after fix
+    // {
+    //   expression: 'p xor q',
+    //   truthTable: [
+    //     ['p', 'q'],
+    //     [false, false, false],
+    //     [false, true, true],
+    //     [true, false, true],
+    //     [true, true, false]
+    //   ]
+    // },
+    {
+      expression: 'p and not q',
+      truthTable: [
+        ['p', 'q'],
+        [false, false, false],
+        [false, true, false],
+        [true, false, true],
+        [true, true, false]
+      ]
+    },
+    {
+      expression: 'p or not q',
+      truthTable: [
+        ['p', 'q'],
+        [false, false, true],
+        [false, true, false],
+        [true, false, true],
+        [true, true, true]
+      ]
+    },
+    // TODO: re-enable after fix
+    // {
+    //   expression: 'not p or q',
+    //   truthTable: [
+    //     ['p', 'q'],
+    //     [false, false, true],
+    //     [false, true, true],
+    //     [true, false, false],
+    //     [true, true, true]
+    //   ]
+    // },
+    // TODO: re-enable after fix
+    // {
+    //   expression: 'not p and not q',
+    //   truthTable: [
+    //     ['p', 'q'],
+    //     [false, false, true],
+    //     [false, true, false],
+    //     [true, false, false],
+    //     [true, true, false]
+    //   ]
+    // },
+    {
+      expression: 'p and q and s',
+      truthTable: [
+        ['p', 'q', 's'],
+        [false, false, false, false],
+        [false, false, true, false],
+        [false, true, false, false],
+        [false, true, true, false],
+        [true, false, false, false],
+        [true, false, true, false],
+        [true, true, false, false],
+        [true, true, true, true]
+      ]
+    },
+    {
+      expression: 'p and q and not s',
+      truthTable: [
+        ['p', 'q', 's'],
+        [false, false, false, false],
+        [false, false, true, false],
+        [false, true, false, false],
+        [false, true, true, false],
+        [true, false, false, false],
+        [true, false, true, false],
+        [true, true, false, true],
+        [true, true, true, false]
+      ]
+    },
+    // TODO: re-enable after fix
+    // {
+    //   expression: 'p and not q and s',
+    //   truthTable: [
+    //     ['p', 'q', 's'],
+    //     [false, false, false, false],
+    //     [false, false, true, false],
+    //     [false, true, false, false],
+    //     [false, true, true, false],
+    //     [true, false, false, false],
+    //     [true, false, true, true],
+    //     [true, true, false, false],
+    //     [true, true, true, false]
+    //   ]
+    // },
+    {
+      expression: 'p and not (q and s)',
+      truthTable: [
+        ['p', 'q', 's'],
+        [false, false, false, false],
+        [false, false, true, false],
+        [false, true, false, false],
+        [false, true, true, false],
+        [true, false, false, true],
+        [true, false, true, true],
+        [true, true, false, true],
+        [true, true, true, false]
+      ]
+    },
+    // TODO: re-enable after fix
+    // {
+    //   expression: 'not p and q and s',
+    //   truthTable: [
+    //     ['p', 'q', 's'],
+    //     [false, false, false, false],
+    //     [false, false, true, false],
+    //     [false, true, false, false],
+    //     [false, true, true, true],
+    //     [true, false, false, false],
+    //     [true, false, true, false],
+    //     [true, true, false, false],
+    //     [true, true, true, false]
+    //   ]
+    // },
   ]
   testCases.forEach((testCase) => {
     it('generates correct query permutations for ' + testCase.expression, () => {
@@ -41,14 +187,14 @@ describe('generates correct number of permutations', () => {
  * Helper function for building expected results more concisely
  * @param table - A 2-dimensional array. 
  *   First ("header") row is the list of variables of length n. 
- *   Remaining n^2 rows (of length n+1) are the expected boolean values of the truth table
+ *   Remaining 2^n rows (of length n+1) are the expected boolean values of the truth table
  * @returns The expected return from the evaluate function
 */
 function buildExpectedResultFromTable(table: any[][]): QueryPermutation[] {
   const result: QueryPermutation[] = [];
   const variableNames: string[] = table[0];
-  assert(table.length-1 === Math.pow(variableNames.length,2), 
-    "Expected number of rows to equal the square of the number of variables");
+  assert(table.length-1 === Math.pow(2, variableNames.length), 
+    "Expected number of rows to equal 2 ^ the number of variables");
   for (let row of table.slice(1)) {
     const expressionOutput: boolean = row[row.length-1];
     const expressionInputs: boolean[] = row.slice(0,row.length-1);
