@@ -75,6 +75,16 @@ describe('simple query permutation tests', () => {
       ]
     },
     {
+      expression: 'not p xor q',
+      truthTable: [
+        ['p', 'q'],
+        [false, false, true],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true]
+      ]
+    },
+    {
       expression: 'not p and not q',
       truthTable: [
         ['p', 'q'],
