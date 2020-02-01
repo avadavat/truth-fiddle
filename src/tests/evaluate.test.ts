@@ -14,17 +14,16 @@ describe('simple query permutation tests', () => {
         [true, true, true]
       ]
     },
-    // TODO: re-enable after fix
-    // {
-    //   expression: 'not p and q',
-    //   truthTable: [
-    //     ['p', 'q'],
-    //     [false, false, false],
-    //     [false, true, true],
-    //     [true, false, false],
-    //     [true, true, false]
-    //   ]
-    // },
+    {
+      expression: 'not p and q',
+      truthTable: [
+        ['p', 'q'],
+        [false, false, false],
+        [false, true, true],
+        [true, false, false],
+        [true, true, false]
+      ]
+    },
     {
       expression: 'p or q',
       truthTable: [
@@ -65,28 +64,26 @@ describe('simple query permutation tests', () => {
         [true, true, true]
       ]
     },
-    // TODO: re-enable after fix
-    // {
-    //   expression: 'not p or q',
-    //   truthTable: [
-    //     ['p', 'q'],
-    //     [false, false, true],
-    //     [false, true, true],
-    //     [true, false, false],
-    //     [true, true, true]
-    //   ]
-    // },
-    // TODO: re-enable after fix
-    // {
-    //   expression: 'not p and not q',
-    //   truthTable: [
-    //     ['p', 'q'],
-    //     [false, false, true],
-    //     [false, true, false],
-    //     [true, false, false],
-    //     [true, true, false]
-    //   ]
-    // },
+    {
+      expression: 'not p or q',
+      truthTable: [
+        ['p', 'q'],
+        [false, false, true],
+        [false, true, true],
+        [true, false, false],
+        [true, true, true]
+      ]
+    },
+    {
+      expression: 'not p and not q',
+      truthTable: [
+        ['p', 'q'],
+        [false, false, true],
+        [false, true, false],
+        [true, false, false],
+        [true, true, false]
+      ]
+    },
     {
       expression: 'p and q and s',
       truthTable: [
@@ -115,21 +112,20 @@ describe('simple query permutation tests', () => {
         [true, true, true, false]
       ]
     },
-    // TODO: re-enable after fix
-    // {
-    //   expression: 'p and not q and s',
-    //   truthTable: [
-    //     ['p', 'q', 's'],
-    //     [false, false, false, false],
-    //     [false, false, true, false],
-    //     [false, true, false, false],
-    //     [false, true, true, false],
-    //     [true, false, false, false],
-    //     [true, false, true, true],
-    //     [true, true, false, false],
-    //     [true, true, true, false]
-    //   ]
-    // },
+    {
+      expression: 'p and not q and s',
+      truthTable: [
+        ['p', 'q', 's'],
+        [false, false, false, false],
+        [false, false, true, false],
+        [false, true, false, false],
+        [false, true, true, false],
+        [true, false, false, false],
+        [true, false, true, true],
+        [true, true, false, false],
+        [true, true, true, false]
+      ]
+    },
     {
       expression: 'p and not (q and s)',
       truthTable: [
@@ -144,21 +140,20 @@ describe('simple query permutation tests', () => {
         [true, true, true, false]
       ]
     },
-    // TODO: re-enable after fix
-    // {
-    //   expression: 'not p and q and s',
-    //   truthTable: [
-    //     ['p', 'q', 's'],
-    //     [false, false, false, false],
-    //     [false, false, true, false],
-    //     [false, true, false, false],
-    //     [false, true, true, true],
-    //     [true, false, false, false],
-    //     [true, false, true, false],
-    //     [true, true, false, false],
-    //     [true, true, true, false]
-    //   ]
-    // },
+    {
+      expression: 'not p and q and s',
+      truthTable: [
+        ['p', 'q', 's'],
+        [false, false, false, false],
+        [false, false, true, false],
+        [false, true, false, false],
+        [false, true, true, true],
+        [true, false, false, false],
+        [true, false, true, false],
+        [true, true, false, false],
+        [true, true, true, false]
+      ]
+    },
   ]
   testCases.forEach((testCase) => {
     it('generates correct query permutations for ' + testCase.expression, () => {

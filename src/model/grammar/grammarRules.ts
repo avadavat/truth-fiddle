@@ -1,16 +1,19 @@
 export const grammarRules = `
 Truth {
   Exp
-    = NotExp
-    | OrExp
+    = OrExp
     | AndExp
     | XorExp
+    | PriExp
+
+  PriExp
+    = NotExp
     | ParenExp
     | ident
        
   NotExp
-    = "not " Exp
-    | "NOT " Exp
+    = "not " PriExp
+    | "NOT " PriExp
   
   OrExp
     = Exp "or " Exp
