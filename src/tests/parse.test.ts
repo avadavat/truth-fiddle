@@ -41,13 +41,11 @@ describe('special keyword error handling tests', () => {
     expect(() => parse('not p')).not.toThrowError();
   });
 
-  // TODO: Re-enable once we fix this grammar issue.
-  it.skip('evaluates "not" to throw an error', () => {
+  it('evaluates "not" to throw an error', () => {
     expect(() => parse('not')).toThrowError();
   });
 
-  // TODO: Re-enable once we fix this grammar issue.
-  it.skip('evaluates "( not ) or ( not )" to throw an error', () => {
+  it('evaluates "( not ) or ( not )" to throw an error', () => {
     expect(() => parse('( not ) or ( not )')).toThrowError();
   });
 });

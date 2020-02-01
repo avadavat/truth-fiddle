@@ -27,6 +27,12 @@ Truth {
     = "(" Exp ")"
       
   ident  (an identifier)
-    = letter alnum*
+    = ~keyword letter alnum*
+
+  keyword
+    = (caseInsensitive<"not">
+    | caseInsensitive<"and">
+    | caseInsensitive<"or">
+    | caseInsensitive<"xor">) ~(alnum+)
 }
 `;
