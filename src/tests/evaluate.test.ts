@@ -3,11 +3,11 @@ import { evaluate } from '../model/evaluator/evaluate';
 import { parse } from '../model/parser';
 
 describe('simple query permutation tests', () => {
-  const testCases: {expression: string, truthTable: any[]}[] = [
+  const testCases: {expression: string, variableNames: string[], truthTable: boolean[][]}[] = [
     {
       expression: 'p and q', 
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, false],
         [false, true, false],
         [true, false, false],
@@ -16,8 +16,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'not p and q',
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, false],
         [false, true, true],
         [true, false, false],
@@ -26,8 +26,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p or q',
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, false],
         [false, true, true],
         [true, false, true],
@@ -36,8 +36,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p xor q',
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, false],
         [false, true, true],
         [true, false, true],
@@ -46,8 +46,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p and not q',
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, false],
         [false, true, false],
         [true, false, true],
@@ -56,8 +56,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p or not q',
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, true],
         [false, true, false],
         [true, false, true],
@@ -66,8 +66,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'not p or q',
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, true],
         [false, true, true],
         [true, false, false],
@@ -76,8 +76,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'not p xor q',
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, true],
         [false, true, false],
         [true, false, false],
@@ -86,8 +86,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'not p and not q',
+      variableNames: ['p', 'q'],
       truthTable: [
-        ['p', 'q'],
         [false, false, true],
         [false, true, false],
         [true, false, false],
@@ -96,8 +96,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p and q and s',
+      variableNames: ['p', 'q', 's'],
       truthTable: [
-        ['p', 'q', 's'],
         [false, false, false, false],
         [false, false, true, false],
         [false, true, false, false],
@@ -110,8 +110,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p and q and not s',
+      variableNames: ['p', 'q', 's'],
       truthTable: [
-        ['p', 'q', 's'],
         [false, false, false, false],
         [false, false, true, false],
         [false, true, false, false],
@@ -124,8 +124,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p and not q and s',
+      variableNames: ['p', 'q', 's'],
       truthTable: [
-        ['p', 'q', 's'],
         [false, false, false, false],
         [false, false, true, false],
         [false, true, false, false],
@@ -138,8 +138,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p and not (q and s)',
+      variableNames: ['p', 'q', 's'],
       truthTable: [
-        ['p', 'q', 's'],
         [false, false, false, false],
         [false, false, true, false],
         [false, true, false, false],
@@ -152,8 +152,8 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'not p and q and s',
+      variableNames: ['p', 'q', 's'],
       truthTable: [
-        ['p', 'q', 's'],
         [false, false, false, false],
         [false, false, true, false],
         [false, true, false, false],
@@ -167,7 +167,7 @@ describe('simple query permutation tests', () => {
   ]
   testCases.forEach((testCase) => {
     it('generates correct query permutations for ' + testCase.expression, () => {
-      const expectedResult = buildExpectedResultFromTable(testCase.truthTable);
+      const expectedResult = buildExpectedResultFromTable(testCase.variableNames, testCase.truthTable);
       expect(evaluate(parse(testCase.expression))).toStrictEqual(expectedResult);
     });
   });
@@ -189,17 +189,15 @@ describe('generates correct number of permutations', () => {
 
 /**
  * Helper function for building expected results more concisely
- * @param table - A 2-dimensional array. 
- *   First ("header") row is the list of variables of length n. 
- *   Remaining 2^n rows (of length n+1) are the expected boolean values of the truth table
+ * @param variableNames - a 1-dimensional array of length n - the variable names used in the expression.
+ * @param table - A 2-dimensional array of 2^n rows - the expected boolean values of the truth table
  * @returns The expected return from the evaluate function
 */
-function buildExpectedResultFromTable(table: any[][]): QueryPermutation[] {
+function buildExpectedResultFromTable(variableNames: string[], table: boolean[][]): QueryPermutation[] {
   const result: QueryPermutation[] = [];
-  const variableNames: string[] = table[0];
-  assert(table.length-1 === Math.pow(2, variableNames.length), 
+  assert(table.length === Math.pow(2, variableNames.length), 
     "Expected number of rows to equal 2 ^ the number of variables");
-  for (let row of table.slice(1)) {
+  for (let row of table) {
     const expressionOutput: boolean = row[row.length-1];
     const expressionInputs: boolean[] = row.slice(0,row.length-1);
     assert(variableNames.length === expressionInputs.length, 
