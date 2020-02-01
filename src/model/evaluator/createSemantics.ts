@@ -32,7 +32,7 @@ export function createSemantics(
       return left.evaluate() && right.evaluate();
     },
     XorExp: function(left, _op, right) {
-      return left.evaluate() != right.evaluate();
+      return left.evaluate() !== right.evaluate();
     },
     ParenExp: function(_open, exp, _close) {
       return exp.evaluate();
