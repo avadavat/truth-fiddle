@@ -14,3 +14,12 @@ XorExp ::= Exp "xor" Exp
 ParenExp ::= "(" Exp ")"
 ident ::= letter (letter | digit)*
 ```
+
+# Installation
+
+```
+git clone https://github.com/avadavat/truth-fiddle
+cd truth-fiddle
+npm install
+npm start
+```
