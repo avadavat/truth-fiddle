@@ -3,17 +3,23 @@ import { evaluate } from '../model/evaluator/evaluate';
 import { parse } from '../model/parser';
 
 describe('simple query permutation tests', () => {
-  it('generates correct query permutations for "p and q"', () => {
-    const expectedResult: QueryPermutation[] = 
-      buildExpectedResultFromTable([
+  const testCases = [
+    {
+      expression:'p and q', 
+      truthTable: [
           ['p', 'q'],
           [false, false, false],
           [false, true, false],
           [true, false, false],
           [true, true, true]
-        ]);
-
-    expect(evaluate(parse('p and q'))).toStrictEqual(expectedResult);
+        ]
+    }
+  ]
+  testCases.forEach((testCase) => {
+    it('generates correct query permutations for ' + testCase.expression, () => {
+      const expectedResult = buildExpectedResultFromTable(testCase.truthTable);
+      expect(evaluate(parse(testCase.expression))).toStrictEqual(expectedResult);
+    });
   });
 });
 
