@@ -12,5 +12,5 @@ The parser for `truth-fiddle` makes use of the [Ohm package](https://github.com/
 git clone https://github.com/avadavat/truth-fiddle
 cd truth-fiddle
 npm install
-npm start
+npm run dev
 ```
