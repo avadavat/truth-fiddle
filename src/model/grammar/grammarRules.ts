@@ -12,20 +12,16 @@ Truth {
     | ident
        
   NotExp
-    = "not " PriExp
-    | "NOT " PriExp
+    = caseInsensitive<"not "> PriExp
   
   OrExp
-    = Exp "or " Exp
-    | Exp "OR " Exp
+    = Exp caseInsensitive<"or "> Exp
   
   AndExp
-    = Exp "and " Exp
-    | Exp "AND " Exp
+    = Exp caseInsensitive<"and "> Exp
   
   XorExp
-    = Exp "xor " Exp
-    | Exp "XOR " Exp
+    = Exp caseInsensitive<"xor "> Exp
   
   ParenExp
     = "(" Exp ")"

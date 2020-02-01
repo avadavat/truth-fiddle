@@ -15,6 +15,16 @@ describe('simple query permutation tests', () => {
       ]
     },
     {
+      expression: 'p and notq', 
+      variableNames: ['p', 'notq'],
+      truthTable: [
+        [false, false, false],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true]
+      ]
+    },
+    {
       expression: 'not p and q',
       variableNames: ['p', 'q'],
       truthTable: [
@@ -164,6 +174,116 @@ describe('simple query permutation tests', () => {
         [true, true, true, false]
       ]
     },
+    {
+      expression: 'p aND q', 
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true]
+      ]
+    },
+    {
+      expression: 'p Or q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, true]
+      ]
+    },
+    {
+      expression: 'p',
+      variableNames: ['p'],
+      truthTable: [
+        [false, false],
+        [true, true],
+      ]
+    },
+    {
+      expression: 'not p',
+      variableNames: ['p'],
+      truthTable: [
+        [false, true],
+        [true, false],
+      ]
+    },
+    {
+      expression: 'nOt p',
+      variableNames: ['p'],
+      truthTable: [
+        [false, true],
+        [true, false],
+      ]
+    },
+    {
+      expression: 'NOT p',
+      variableNames: ['p'],
+      truthTable: [
+        [false, true],
+        [true, false],
+      ]
+    },
+    /* TODO: re-enable when extra syntax is defined
+    {
+      expression: '! p',
+      variableNames: ['p'],
+      truthTable: [
+        [false, true],
+        [true, false],
+      ]
+    },
+    {
+      expression: '~ p',
+      variableNames: ['p'],
+      truthTable: [
+        [false, true],
+        [true, false],
+      ]
+    },
+    {
+      expression: 'p | q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, true]
+      ]
+    },
+    {
+      expression: 'p || q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, true]
+      ]
+    },
+    {
+      expression: 'p & q', 
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true]
+      ]
+    },
+    {
+      expression: 'p && q', 
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true]
+      ]
+    },
+    */
   ]
   testCases.forEach((testCase) => {
     it('generates correct query permutations for ' + testCase.expression, () => {

@@ -22,6 +22,9 @@ export function createSemantics(
     Exp: function(e) {
       return e.evaluate();
     },
+    PriExp: function(e) {
+      return e.evaluate();
+    },
     NotExp: function(_op, exp) {
       return !exp.evaluate();
     },
