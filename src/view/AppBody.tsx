@@ -3,7 +3,6 @@ import QueryString from 'query-string';
 import { InputArea } from './InputArea';
 import { TruthTable } from './truthTable';
 import { evaluate, parse, ParseResult, QueryPermutation } from '../model';
-import { Button } from '@material-ui/core';
 
 // Expression the user sees when initially loading the application.
 const defaultExpression = 'p and q';
@@ -47,10 +46,6 @@ export const AppBody = React.memo(function AppBody() {
       setMessage(e.message);
     }
   }, [query]);
-
-  const onCopyButtonClick = () => {
-    navigator.clipboard.writeText('mytext');
-  };
 
   return (
     <>
