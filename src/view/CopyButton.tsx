@@ -5,6 +5,7 @@ import { generateUrlFromQuery } from '../util/generateUrlFromQuery';
 
 const copyButtonStyle: React.CSSProperties = {
   color: 'white',
+  verticalAlign: 'middle',
 };
 
 interface CopyButtonProps {
