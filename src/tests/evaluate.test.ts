@@ -35,17 +35,16 @@ describe('simple query permutation tests', () => {
         [true, true, true]
       ]
     },
-    // TODO: re-enable after fix
-    // {
-    //   expression: 'p xor q',
-    //   truthTable: [
-    //     ['p', 'q'],
-    //     [false, false, false],
-    //     [false, true, true],
-    //     [true, false, true],
-    //     [true, true, false]
-    //   ]
-    // },
+    {
+      expression: 'p xor q',
+      truthTable: [
+        ['p', 'q'],
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, false]
+      ]
+    },
     {
       expression: 'p and not q',
       truthTable: [
