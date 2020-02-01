@@ -4,8 +4,6 @@ import { QueryPermutation } from '../../model';
 import { TruthTableCell } from './TruthTableCell';
 import uuid from 'uuid';
 
-const resultString = 'Result';
-
 interface TruthTableRowProps {
   row: QueryPermutation;
 }
