@@ -28,6 +28,7 @@ Truth {
   
   XorExp
     = Exp caseInsensitive<"xor "> Exp
+    | Exp "^" Exp
   
   ParenExp
     = "(" Exp ")"

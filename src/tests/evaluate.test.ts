@@ -55,6 +55,26 @@ describe('simple query permutation tests', () => {
       ]
     },
     {
+      expression: 'p ^ q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, false]
+      ]
+    },
+    {
+      expression: 'p^ q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, false]
+      ]
+    },
+    {
       expression: 'p and not q',
       variableNames: ['p', 'q'],
       truthTable: [
