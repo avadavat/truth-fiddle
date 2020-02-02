@@ -226,7 +226,6 @@ describe('simple query permutation tests', () => {
         [true, false],
       ]
     },
-    /* TODO: re-enable when extra syntax is defined
     {
       expression: '! p',
       variableNames: ['p'],
@@ -237,6 +236,14 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: '~ p',
+      variableNames: ['p'],
+      truthTable: [
+        [false, true],
+        [true, false],
+      ]
+    },
+    {
+      expression: '~p',
       variableNames: ['p'],
       truthTable: [
         [false, true],
@@ -255,6 +262,16 @@ describe('simple query permutation tests', () => {
     },
     {
       expression: 'p || q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, true]
+      ]
+    },
+    {
+      expression: 'p|q',
       variableNames: ['p', 'q'],
       truthTable: [
         [false, false, false],
@@ -283,7 +300,16 @@ describe('simple query permutation tests', () => {
         [true, true, true]
       ]
     },
-    */
+    {
+      expression: 'p &&q', 
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true]
+      ]
+    },
   ]
   testCases.forEach((testCase) => {
     it('generates correct query permutations for ' + testCase.expression, () => {

@@ -13,12 +13,18 @@ Truth {
        
   NotExp
     = caseInsensitive<"not "> PriExp
+    | "!" PriExp
+    | "~" PriExp
   
   OrExp
     = Exp caseInsensitive<"or "> Exp
+    | Exp "||" Exp
+    | Exp "|" Exp
   
   AndExp
     = Exp caseInsensitive<"and "> Exp
+    | Exp "&&" Exp
+    | Exp "&" Exp
   
   XorExp
     = Exp caseInsensitive<"xor "> Exp
@@ -30,9 +36,11 @@ Truth {
     = ~keyword letter alnum*
 
   keyword
-    = (caseInsensitive<"not">
-    | caseInsensitive<"and">
-    | caseInsensitive<"or">
-    | caseInsensitive<"xor">) ~(alnum+)
+    = (
+      caseInsensitive<"not">
+      | caseInsensitive<"and">
+      | caseInsensitive<"or">
+      | caseInsensitive<"xor">
+    ) ~(alnum+)
 }
 `;

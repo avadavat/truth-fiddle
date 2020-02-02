@@ -1,6 +1,6 @@
-// Splits by parentheses and white space.
-const splitRegex = new RegExp(/[ ()]+/g);
-const reservedKeywords = new Set(['and', 'not', 'or', 'xor']);
+// Splits by parentheses, white space, and special characters.
+const splitRegex = new RegExp(/[ ()|&~!]+/g);
+const reservedKeywords = new Set(['and', 'not', 'or', 'xor', '&&', '&', '||', '|', '~', '!']);
 
 /**
  * Returns a list of all the unique variable names in the given expression.
