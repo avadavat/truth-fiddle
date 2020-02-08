@@ -73,18 +73,18 @@ export function createSemantics(
   return evaluateWithI;
 }
 
-function and(left, _op, right): boolean {
+function and(left: any, _op: any, right: any): boolean {
   return left.evaluate() && right.evaluate();
 }
 
-function or(left, _op, right): boolean {
+function or(left: any, _op: any, right: any): boolean {
   return left.evaluate() || right.evaluate();
 }
 
-function xor(left, _op, right): boolean {
+function xor(left: any, _op: any, right: any): boolean {
   return left.evaluate() !== right.evaluate();
 }
 
-function iff(left, _op, right): boolean {
+function iff(left: any, _op: any, right: any): boolean {
   return left.evaluate() === right.evaluate();
 }
