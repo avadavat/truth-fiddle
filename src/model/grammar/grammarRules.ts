@@ -1,7 +1,14 @@
 export const grammarRules = `
 Truth {
   Exp
-    = IfExp
+    = BiconditionalExp
+
+  BiconditionalExp
+    = BiconditionalExp "<->" BiconditionalExp  --arrows
+    | BiconditionalExp "=" BiconditionalExp  --singleEquals
+    | BiconditionalExp "==" BiconditionalExp  --doubleEquals
+    | BiconditionalExp caseInsensitive<"iff "> BiconditionalExp --iff
+    | IfExp
 
   IfExp
     = IfExp "->" IfExp  -- arrow
