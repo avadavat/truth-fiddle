@@ -46,6 +46,7 @@ export function createSemantics(
     BiconditionalExp_singleEquals: iff,
     BiconditionalExp_doubleEquals: iff,
     BiconditionalExp_iff: iff,
+    BiconditionalExp_ifAndOnlyIf: iff,
     ParenExp: function(_open, exp, _close) {
       return exp.evaluate();
     },

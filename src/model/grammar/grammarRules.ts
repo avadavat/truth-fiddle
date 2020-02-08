@@ -8,6 +8,7 @@ Truth {
     | BiconditionalExp "=" BiconditionalExp  --singleEquals
     | BiconditionalExp "==" BiconditionalExp  --doubleEquals
     | BiconditionalExp caseInsensitive<"iff "> BiconditionalExp --iff
+    | BiconditionalExp caseInsensitive<"if and only if"> BiconditionalExp  --ifAndOnlyIf
     | IfExp
 
   IfExp
@@ -54,6 +55,10 @@ Truth {
       | caseInsensitive<"and">
       | caseInsensitive<"or">
       | caseInsensitive<"xor">
+      | caseInsensitive<"if">
+      | caseInsensitive<"then">
+      | caseInsensitive<"only">
+      | caseInsensitive<"iff">
     ) ~(alnum+)
 }
 `;
