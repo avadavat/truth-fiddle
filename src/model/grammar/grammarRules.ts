@@ -9,6 +9,10 @@ Truth {
     | BiconditionalExp "==" BiconditionalExp  --doubleEquals
     | BiconditionalExp caseInsensitive<"iff "> BiconditionalExp --iff
     | BiconditionalExp caseInsensitive<"if and only if"> BiconditionalExp  --ifAndOnlyIf
+    | ConverseExp
+
+  ConverseExp
+    = ConverseExp "<-" ConverseExp  -- arrow
     | IfExp
 
   IfExp

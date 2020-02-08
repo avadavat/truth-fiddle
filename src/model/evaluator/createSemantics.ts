@@ -42,6 +42,9 @@ export function createSemantics(
     IfExp_ifThen: function(_if, left, _then, right) {
       return !left.evaluate() || right.evaluate();
     },
+    ConverseExp_arrow: function(left, _op, right) {
+      return left.evaluate() || !right.evaluate();
+    },
     BiconditionalExp_arrows: iff,
     BiconditionalExp_singleEquals: iff,
     BiconditionalExp_doubleEquals: iff,

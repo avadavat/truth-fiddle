@@ -456,6 +456,16 @@ describe('simple query permutation tests', () => {
         [true, true, true]
       ]
     },
+    {
+      expression: 'p <- q', 
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, true],
+        [false, true, false],
+        [true, false, true],
+        [true, true, true]
+      ]
+    },
   ]
   testCases.forEach((testCase) => {
     it('generates correct query permutations for ' + testCase.expression, () => {
