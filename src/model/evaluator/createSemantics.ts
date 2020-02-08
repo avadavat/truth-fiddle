@@ -57,6 +57,12 @@ export function createSemantics(
       const variableName = first.sourceString + remaining.sourceString;
       return queryParameters[index].get(variableName);
     },
+    True: function(_) {
+      return true;
+    },
+    False: function(_) {
+      return false;
+    }
   })(matchResult);
 
   function evaluateWithI(i: number): boolean {

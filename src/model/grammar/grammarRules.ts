@@ -40,6 +40,8 @@ Truth {
   PriExp
     = NotExp
     | ParenExp
+    | True
+    | False
     | ident
   
   ParenExp
@@ -49,6 +51,12 @@ Truth {
     = caseInsensitive<"not "> PriExp
     | "!" PriExp
     | "~" PriExp
+
+  True
+    = caseInsensitive<"true">
+
+  False
+    = caseInsensitive<"false">
       
   ident  (an identifier)
     = ~keyword letter alnum*
@@ -63,6 +71,8 @@ Truth {
       | caseInsensitive<"then">
       | caseInsensitive<"only">
       | caseInsensitive<"iff">
+      | caseInsensitive<"true">
+      | caseInsensitive<"false">
     ) ~(alnum+)
 }
 `;
