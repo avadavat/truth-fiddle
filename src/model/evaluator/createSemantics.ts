@@ -28,15 +28,14 @@ export function createSemantics(
     NotExp: function(_op, exp) {
       return !exp.evaluate();
     },
-    OrExp: function(left, _op, right) {
-      return left.evaluate() || right.evaluate();
-    },
-    AndExp: function(left, _op, right) {
-      return left.evaluate() && right.evaluate();
-    },
-    XorExp: function(left, _op, right) {
-      return left.evaluate() !== right.evaluate();
-    },
+    OrExp_or: or,
+    OrExp_doublePipe: or,
+    OrExp_singlePipe: or,
+    AndExp_and: and,
+    AndExp_doubleAmpersand: and,
+    AndExp_singleAmpersand: and,
+    XorExp_xor: xor,
+    XorExp_caret: xor,
     ParenExp: function(_open, exp, _close) {
       return exp.evaluate();
     },
@@ -52,4 +51,16 @@ export function createSemantics(
   }
 
   return evaluateWithI;
+}
+
+function and(left, _op, right): boolean {
+  return left.evaluate() && right.evaluate();
+}
+
+function or(left, _op, right): boolean {
+  return left.evaluate() || right.evaluate();
+}
+
+function xor(left, _op, right): boolean {
+  return left.evaluate() !== right.evaluate();
 }

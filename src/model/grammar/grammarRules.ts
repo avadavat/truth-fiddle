@@ -2,36 +2,36 @@ export const grammarRules = `
 Truth {
   Exp
     = OrExp
-    | AndExp
+  
+  OrExp
+    = OrExp caseInsensitive<"or "> XorExp  -- or
+    | OrExp "||" XorExp  -- doublePipe
+    | OrExp "|" XorExp  -- singlePipe
     | XorExp
+  
+  XorExp
+    = XorExp caseInsensitive<"xor "> AndExp  -- xor
+    | XorExp "^" AndExp  --caret
+    | AndExp
+  
+  AndExp
+    = AndExp caseInsensitive<"and "> PriExp  -- and
+    | AndExp "&&" PriExp  -- doubleAmpersand
+    | AndExp "&" PriExp  --singleAmpersand
     | PriExp
 
   PriExp
     = NotExp
     | ParenExp
     | ident
+  
+  ParenExp
+    = "(" Exp ")"
        
   NotExp
     = caseInsensitive<"not "> PriExp
     | "!" PriExp
     | "~" PriExp
-  
-  OrExp
-    = Exp caseInsensitive<"or "> Exp
-    | Exp "||" Exp
-    | Exp "|" Exp
-  
-  AndExp
-    = Exp caseInsensitive<"and "> Exp
-    | Exp "&&" Exp
-    | Exp "&" Exp
-  
-  XorExp
-    = Exp caseInsensitive<"xor "> Exp
-    | Exp "^" Exp
-  
-  ParenExp
-    = "(" Exp ")"
       
   ident  (an identifier)
     = ~keyword letter alnum*

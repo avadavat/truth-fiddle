@@ -330,6 +330,34 @@ describe('simple query permutation tests', () => {
         [true, true, true]
       ]
     },
+    {
+      expression: 'p and q or s',
+      variableNames: ['p', 'q', 's'],
+      truthTable: [
+        [false, false, false, false],
+        [false, false, true, true],
+        [false, true, false, false],
+        [false, true, true, true],
+        [true, false, false, false],
+        [true, false, true, true],
+        [true, true, false, true],
+        [true, true, true, true]
+      ]
+    },
+    {
+      expression: '(p and q) or s',
+      variableNames: ['p', 'q', 's'],
+      truthTable: [
+        [false, false, false, false],
+        [false, false, true, true],
+        [false, true, false, false],
+        [false, true, true, true],
+        [true, false, false, false],
+        [true, false, true, true],
+        [true, true, false, true],
+        [true, true, true, true]
+      ]
+    },
   ]
   testCases.forEach((testCase) => {
     it('generates correct query permutations for ' + testCase.expression, () => {
