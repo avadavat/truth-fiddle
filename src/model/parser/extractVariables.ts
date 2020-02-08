@@ -1,6 +1,6 @@
 // Splits by parentheses, white space, and special characters.
 const splitRegex = new RegExp(/[ ()|&~!^]+/g);
-const reservedKeywords = new Set(['and', 'not', 'or', 'xor', '&&', '&', '||', '|', '~', '!', '^']);
+const reservedKeywords = new Set(['and', 'not', 'or', 'xor', '&&', '&', '||', '|', '~', '!', '^', '->', 'if', 'then']);
 
 /**
  * Returns a list of all the unique variable names in the given expression.

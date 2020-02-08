@@ -36,6 +36,12 @@ export function createSemantics(
     AndExp_singleAmpersand: and,
     XorExp_xor: xor,
     XorExp_caret: xor,
+    IfExp_arrow: function(left, _op, right) {
+      return !left.evaluate() || right.evaluate();
+    },
+    IfExp_ifThen: function(_if, left, _then, right) {
+      return !left.evaluate() || right.evaluate();
+    },
     ParenExp: function(_open, exp, _close) {
       return exp.evaluate();
     },

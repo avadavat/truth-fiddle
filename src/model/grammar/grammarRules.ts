@@ -1,7 +1,12 @@
 export const grammarRules = `
 Truth {
   Exp
-    = OrExp
+    = IfExp
+
+  IfExp
+    = IfExp "->" IfExp  -- arrow
+    | caseInsensitive<"if "> IfExp caseInsensitive<"then "> IfExp  -- ifThen
+    | OrExp
   
   OrExp
     = OrExp caseInsensitive<"or "> XorExp  -- or
