@@ -1,5 +1,6 @@
 import React from 'react';
 import QueryString from 'query-string';
+import { Title } from './Title';
 import { InputArea } from './InputArea';
 import { TruthTable } from './truthTable';
 import { evaluate, parse, ParseResult, QueryPermutation } from '../model';
@@ -49,6 +50,7 @@ export const AppBody = React.memo(function AppBody() {
 
   return (
     <>
+      <Title />
       <InputArea onQueryChange={onQueryChange} query={query} />
       <div>{message}</div>
       <TruthTable rows={result} />
