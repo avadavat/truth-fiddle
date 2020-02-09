@@ -11,7 +11,7 @@ import { TruthTableHeaderRow } from './TruthTableHeaderRow';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
+      width: '95%',
       marginTop: theme.spacing(3),
       overflowX: 'auto',
     },
@@ -35,16 +35,11 @@ export const TruthTable = React.memo(function TruthTable(
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
-          {result.length > 0 && (
-            <TruthTableHeaderRow row={result[0]} />
-          )}
+          {result.length > 0 && <TruthTableHeaderRow row={result[0]} />}
         </TableHead>
         <TableBody>
           {result.map((queryPermutation, index) => (
-            <TruthTableRow
-              row={queryPermutation}
-              key={index}
-            />
+            <TruthTableRow row={queryPermutation} key={index} />
           ))}
         </TableBody>
       </Table>
