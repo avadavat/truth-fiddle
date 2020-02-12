@@ -11,6 +11,7 @@ const reservedKeywords = new Set([
   'only',
   'true',
   'false',
+  'equals',
 ]);
 
 /**

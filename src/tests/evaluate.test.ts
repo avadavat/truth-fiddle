@@ -280,18 +280,20 @@ describe('simple query permutation tests', () => {
     });
   });
   // XOR operators:
-  ['xor', 'XOR', 'Xor', 'xOr', '^'].forEach(op => {
-    testCases.push({
-      expression: 'p ' + op + ' q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, false],
-      ],
-    });
-  });
+  ['xor', 'XOR', 'Xor', 'xOr', '^', '!=', '=/=', '~=', 'not equals'].forEach(
+    op => {
+      testCases.push({
+        expression: 'p ' + op + ' q',
+        variableNames: ['p', 'q'],
+        truthTable: [
+          [false, false, false],
+          [false, true, true],
+          [true, false, true],
+          [true, true, false],
+        ],
+      });
+    }
+  );
   // NOT operators:
   ['not', 'NOT', 'Not', 'noT', '~', '!'].forEach(op => {
     testCases.push({
@@ -317,20 +319,28 @@ describe('simple query permutation tests', () => {
     });
   });
   // BICONDITIONAL operators:
-  ['<->', '<=>', '<-->', '<==>', '=', '==', 'iff', 'if and only if'].forEach(
-    op => {
-      testCases.push({
-        expression: 'p ' + op + ' q',
-        variableNames: ['p', 'q'],
-        truthTable: [
-          [false, false, true],
-          [false, true, false],
-          [true, false, false],
-          [true, true, true],
-        ],
-      });
-    }
-  );
+  [
+    '<->',
+    '<=>',
+    '<-->',
+    '<==>',
+    '=',
+    '==',
+    'iff',
+    'if and only if',
+    'equals',
+  ].forEach(op => {
+    testCases.push({
+      expression: 'p ' + op + ' q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, true],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true],
+      ],
+    });
+  });
   // CONVERSE operators:
   ['<-', '<--', '<=', '<=='].forEach(op => {
     testCases.push({
