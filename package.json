@@ -28,7 +28,8 @@
     "eject": "react-scripts eject",
     "start": "pm2 start process.json",
     "stop": "pm2 stop process.json",
-    "restart": "pm2 restart all"
+    "restart": "pm2 restart all",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"**/*.js\" && prettier --single-quote --trailing-comma es5 --write \"**/*.ts\" && prettier --single-quote --trailing-comma es5 --write \"**/*.tsx\""
   },
   "eslintConfig": {
     "extends": "react-app"
