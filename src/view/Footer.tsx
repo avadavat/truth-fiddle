@@ -7,7 +7,7 @@ export const Footer = React.memo(function Footer() {
         <img
           src="/img/github-logo-light-64px.png"
           alt="Github Logo"
-          title="Source Coderererer"
+          title="Source Codererererrr"
         />
       </a>
     </div>
