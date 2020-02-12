@@ -8,6 +8,8 @@ git clone https://github.com/avadavat/truth-fiddle
 cd truth-fiddle
 ```
 2. Install Dependencies
+
+Note: Make sure you are using npm version 6.9.0 if you don't want to generate huge diffs in `package-lock.json`
 ```
 npm install
 ```
