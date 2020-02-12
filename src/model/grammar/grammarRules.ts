@@ -4,38 +4,56 @@ Truth {
     = BiconditionalExp
 
   BiconditionalExp
-    = BiconditionalExp "<->" BiconditionalExp  --arrows
-    | BiconditionalExp "=" BiconditionalExp  --singleEquals
-    | BiconditionalExp "==" BiconditionalExp  --doubleEquals
-    | BiconditionalExp caseInsensitive<"iff "> BiconditionalExp --iff
-    | BiconditionalExp caseInsensitive<"if and only if"> BiconditionalExp  --ifAndOnlyIf
+    = BiconditionalExp BiconditionalOp BiconditionalExp  --biconditional
     | ConverseExp
 
+  BiconditionalOp
+    = "<->"
+    | "=="
+    | "="
+    | caseInsensitive<"iff ">
+    | caseInsensitive<"if and only if">
+
   ConverseExp
-    = ConverseExp "<-" ConverseExp  -- arrow
+    = ConverseExp ConverseOp ConverseExp  -- arrow
     | IfExp
 
+  ConverseOp
+    = "<-"
+
   IfExp
-    = IfExp "->" IfExp  -- arrow
+    = IfExp IfOp IfExp  -- arrow
     | caseInsensitive<"if "> IfExp caseInsensitive<"then "> IfExp  -- ifThen
     | OrExp
+
+  IfOp
+    = "->"
   
   OrExp
-    = OrExp caseInsensitive<"or "> XorExp  -- or
-    | OrExp "||" XorExp  -- doublePipe
-    | OrExp "|" XorExp  -- singlePipe
+    = OrExp OrOp XorExp  -- or
     | XorExp
+
+  OrOp
+    = caseInsensitive<"or ">
+    | "||"
+    | "|"
   
   XorExp
-    = XorExp caseInsensitive<"xor "> AndExp  -- xor
-    | XorExp "^" AndExp  --caret
+    = XorExp XorOp AndExp  -- xor
     | AndExp
+
+  XorOp
+    = caseInsensitive<"xor ">
+    | "^"
   
   AndExp
-    = AndExp caseInsensitive<"and "> PriExp  -- and
-    | AndExp "&&" PriExp  -- doubleAmpersand
-    | AndExp "&" PriExp  --singleAmpersand
+    = AndExp AndOp PriExp  -- and
     | PriExp
+
+  AndOp
+    = caseInsensitive<"and ">
+    | "&&"
+    | "&"
 
   PriExp
     = NotExp
@@ -45,12 +63,21 @@ Truth {
     | ident
   
   ParenExp
-    = "(" Exp ")"
+    = OpenParenOp Exp CloseParenOp
+
+  OpenParenOp
+    = "("
+
+  CloseParenOp
+    = ")"
        
   NotExp
-    = caseInsensitive<"not "> PriExp
-    | "!" PriExp
-    | "~" PriExp
+    = NotOp PriExp
+
+  NotOp
+    = caseInsensitive<"not ">
+    | "!"
+    | "~"
 
   True
     = caseInsensitive<"true">

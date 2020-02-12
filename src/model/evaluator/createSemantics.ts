@@ -28,14 +28,15 @@ export function createSemantics(
     NotExp: function(_op, exp) {
       return !exp.evaluate();
     },
-    OrExp_or: or,
-    OrExp_doublePipe: or,
-    OrExp_singlePipe: or,
-    AndExp_and: and,
-    AndExp_doubleAmpersand: and,
-    AndExp_singleAmpersand: and,
-    XorExp_xor: xor,
-    XorExp_caret: xor,
+    OrExp_or: function(left: any, _op: any, right: any): boolean {
+      return left.evaluate() || right.evaluate();
+    },
+    AndExp_and: function(left: any, _op: any, right: any): boolean {
+      return left.evaluate() && right.evaluate();
+    },
+    XorExp_xor: function(left: any, _op: any, right: any): boolean {
+      return left.evaluate() !== right.evaluate();
+    },
     IfExp_arrow: function(left, _op, right) {
       return !left.evaluate() || right.evaluate();
     },
@@ -45,11 +46,9 @@ export function createSemantics(
     ConverseExp_arrow: function(left, _op, right) {
       return left.evaluate() || !right.evaluate();
     },
-    BiconditionalExp_arrows: iff,
-    BiconditionalExp_singleEquals: iff,
-    BiconditionalExp_doubleEquals: iff,
-    BiconditionalExp_iff: iff,
-    BiconditionalExp_ifAndOnlyIf: iff,
+    BiconditionalExp_biconditional: function(left: any, _op: any, right: any): boolean {
+      return left.evaluate() === right.evaluate();
+    },
     ParenExp: function(_open, exp, _close) {
       return exp.evaluate();
     },
@@ -73,18 +72,9 @@ export function createSemantics(
   return evaluateWithI;
 }
 
-function and(left: any, _op: any, right: any): boolean {
-  return left.evaluate() && right.evaluate();
-}
 
-function or(left: any, _op: any, right: any): boolean {
-  return left.evaluate() || right.evaluate();
-}
 
-function xor(left: any, _op: any, right: any): boolean {
-  return left.evaluate() !== right.evaluate();
-}
 
-function iff(left: any, _op: any, right: any): boolean {
-  return left.evaluate() === right.evaluate();
-}
+
+
+
