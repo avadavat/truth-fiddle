@@ -5,16 +5,6 @@ import { parse } from '../model/parser';
 describe('simple query permutation tests', () => {
   const testCases: {expression: string, variableNames: string[], truthTable: boolean[][]}[] = [
     {
-      expression: 'p and q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
       expression: 'p and notq', 
       variableNames: ['p', 'notq'],
       truthTable: [
@@ -31,46 +21,6 @@ describe('simple query permutation tests', () => {
         [false, false, false],
         [false, true, true],
         [true, false, false],
-        [true, true, false]
-      ]
-    },
-    {
-      expression: 'p or q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p xor q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, false]
-      ]
-    },
-    {
-      expression: 'p ^ q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, false]
-      ]
-    },
-    {
-      expression: 'p^ q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
         [true, true, false]
       ]
     },
@@ -195,139 +145,11 @@ describe('simple query permutation tests', () => {
       ]
     },
     {
-      expression: 'p aND q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p Or q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
       expression: 'p',
       variableNames: ['p'],
       truthTable: [
         [false, false],
         [true, true],
-      ]
-    },
-    {
-      expression: 'not p',
-      variableNames: ['p'],
-      truthTable: [
-        [false, true],
-        [true, false],
-      ]
-    },
-    {
-      expression: 'nOt p',
-      variableNames: ['p'],
-      truthTable: [
-        [false, true],
-        [true, false],
-      ]
-    },
-    {
-      expression: 'NOT p',
-      variableNames: ['p'],
-      truthTable: [
-        [false, true],
-        [true, false],
-      ]
-    },
-    {
-      expression: '! p',
-      variableNames: ['p'],
-      truthTable: [
-        [false, true],
-        [true, false],
-      ]
-    },
-    {
-      expression: '~ p',
-      variableNames: ['p'],
-      truthTable: [
-        [false, true],
-        [true, false],
-      ]
-    },
-    {
-      expression: '~p',
-      variableNames: ['p'],
-      truthTable: [
-        [false, true],
-        [true, false],
-      ]
-    },
-    {
-      expression: 'p | q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p || q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p|q',
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p & q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p && q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p &&q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
       ]
     },
     {
@@ -356,16 +178,6 @@ describe('simple query permutation tests', () => {
         [true, false, true, true],
         [true, true, false, true],
         [true, true, true, true]
-      ]
-    },
-    {
-      expression: 'p -> q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, true],
-        [true, false, false],
-        [true, true, true]
       ]
     },
     {
@@ -407,66 +219,6 @@ describe('simple query permutation tests', () => {
       ]
     },
     {
-      expression: 'p <-> q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p = q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p == q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p iff q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p if and only if q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p <- q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
       expression: 'p and q and true', 
       variableNames: ['p', 'q'],
       truthTable: [
@@ -496,127 +248,111 @@ describe('simple query permutation tests', () => {
         [true, true, true]
       ]
     },
-    {
-      expression: 'p /\\ q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p \\/ q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, false],
-        [false, true, true],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p <--> q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p <==> q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p <=> q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p --> q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, true],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p => q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, true],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p ==> q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, true],
-        [true, false, false],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p <- q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p <= q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p <-- q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-    {
-      expression: 'p <== q', 
-      variableNames: ['p', 'q'],
-      truthTable: [
-        [false, false, true],
-        [false, true, false],
-        [true, false, true],
-        [true, true, true]
-      ]
-    },
-  ]
+  ];
+  // AND operators:
+  ['and', 'And', 'AND', 'aND', '&', '&&', '/\\'].forEach((op) => {
+    testCases.push(
+      {
+        expression: 'p ' + op + ' q', 
+        variableNames: ['p', 'q'],
+        truthTable: [
+          [false, false, false],
+          [false, true, false],
+          [true, false, false],
+          [true, true, true]
+        ]
+      }
+    );
+  });
+  // OR operators:
+  ['or', 'OR', 'Or', 'oR', '|', '||', '\\/'].forEach((op) => {
+    testCases.push(
+      {
+        expression: 'p ' + op + ' q',
+        variableNames: ['p', 'q'],
+        truthTable: [
+          [false, false, false],
+          [false, true, true],
+          [true, false, true],
+          [true, true, true]
+        ]
+      }
+    );
+  });
+  // XOR operators:
+  ['xor', 'XOR', 'Xor', 'xOr', '^'].forEach((op) => {
+    testCases.push(
+      {
+        expression: 'p ' + op + ' q',
+        variableNames: ['p', 'q'],
+        truthTable: [
+          [false, false, false],
+          [false, true, true],
+          [true, false, true],
+          [true, true, false]
+        ]
+      }
+    );
+  });
+  // NOT operators:
+  ['not', 'NOT', 'Not', 'noT', '~', '!'].forEach((op) => {
+    testCases.push(
+      {
+        expression: op + ' p',
+        variableNames: ['p'],
+        truthTable: [
+          [false, true],
+          [true, false],
+        ]
+      }
+    );
+  });
+  // IF operators:
+  ['->', '-->', '=>', '==>'].forEach((op) => {
+    testCases.push(
+      {
+        expression: 'p ' + op + ' q', 
+        variableNames: ['p', 'q'],
+        truthTable: [
+          [false, false, true],
+          [false, true, true],
+          [true, false, false],
+          [true, true, true]
+        ]
+      }
+    );
+  });
+  // BICONDITIONAL operators:
+  ['<->', '<=>', '<-->', '<==>', '=', '==', 'iff', 'if and only if'].forEach((op) => {
+    testCases.push(
+      {
+        expression: 'p ' + op + ' q', 
+        variableNames: ['p', 'q'],
+        truthTable: [
+          [false, false, true],
+          [false, true, false],
+          [true, false, false],
+          [true, true, true]
+        ]
+      }
+    );
+  });
+  // CONVERSE operators:
+  ['<-', '<--', '<=', '<=='].forEach((op) => {
+    testCases.push(
+      {
+        expression: 'p ' + op + ' q', 
+        variableNames: ['p', 'q'],
+        truthTable: [
+          [false, false, true],
+          [false, true, false],
+          [true, false, true],
+          [true, true, true]
+        ]
+      }
+    );
+  });
+
   testCases.forEach((testCase) => {
     it('generates correct query permutations for ' + testCase.expression, () => {
       const expectedResult = buildExpectedResultFromTable(testCase.variableNames, testCase.truthTable);
