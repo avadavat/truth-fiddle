@@ -46,7 +46,11 @@ export function createSemantics(
     ConverseExp_arrow: function(left, _op, right) {
       return left.evaluate() || !right.evaluate();
     },
-    BiconditionalExp_biconditional: function(left: any, _op: any, right: any): boolean {
+    BiconditionalExp_biconditional: function(
+      left: any,
+      _op: any,
+      right: any
+    ): boolean {
       return left.evaluate() === right.evaluate();
     },
     ParenExp: function(_open, exp, _close) {
@@ -61,7 +65,7 @@ export function createSemantics(
     },
     False: function(_) {
       return false;
-    }
+    },
   })(matchResult);
 
   function evaluateWithI(i: number): boolean {
@@ -71,10 +75,3 @@ export function createSemantics(
 
   return evaluateWithI;
 }
-
-
-
-
-
-
-

@@ -8,5 +8,5 @@ interface TruthTableCellProps {
 export const TruthTableHeaderCell = React.memo(function TruthTableHeaderCell(
   props: TruthTableCellProps
 ) {
-  return <TableCell align='center'>{props.text}</TableCell>;
+  return <TableCell align="center">{props.text}</TableCell>;
 });

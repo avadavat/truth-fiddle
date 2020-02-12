@@ -16,21 +16,11 @@ export const TruthTableHeaderRow = React.memo(function TruthTableHeaderRow(
   const { row } = props;
   const cells: JSX.Element[] = [];
   row.queryParameters.forEach((value: boolean, variableName: string) => {
-    cells.push(
-      <TruthTableHeaderCell
-        key={variableName}
-        text={variableName}
-      />
-    );
+    cells.push(<TruthTableHeaderCell key={variableName} text={variableName} />);
   });
 
   // Add column that holds the result.
-  cells.push(
-    <TruthTableHeaderCell
-      key={uuid()}
-      text={resultString}
-    />
-  );
+  cells.push(<TruthTableHeaderCell key={uuid()} text={resultString} />);
 
   return <TableRow>{cells}</TableRow>;
 });
