@@ -13,6 +13,7 @@ Truth {
     | "=" "="?  -- single_or_double_equals
     | caseInsensitive<"iff ">
     | caseInsensitive<"if and only if ">
+    | caseInsensitive<"equals ">
 
   ConverseExp
     = ConverseExp ConverseOp ConverseExp  -- arrow
@@ -48,7 +49,11 @@ Truth {
 
   XorOp
     = caseInsensitive<"xor ">
+    | caseInsensitive<"not equals ">
     | "^"
+    | "=/="
+    | "!="
+    | "~="
   
   AndExp
     = AndExp AndOp PriExp  -- and
@@ -104,6 +109,7 @@ Truth {
       | caseInsensitive<"iff">
       | caseInsensitive<"true">
       | caseInsensitive<"false">
+      | caseInsensitive<"equals">
     ) ~(alnum+)
 }
 `;
