@@ -8,18 +8,19 @@ Truth {
     | ConverseExp
 
   BiconditionalOp
-    = "<->"
-    | "=="
-    | "="
+    = "<-" "-"? ">"  --double_arrow
+    | "<=" "="? ">"  --fat_double_arrow
+    | "=" "="?  -- single_or_double_equals
     | caseInsensitive<"iff ">
-    | caseInsensitive<"if and only if">
+    | caseInsensitive<"if and only if ">
 
   ConverseExp
     = ConverseExp ConverseOp ConverseExp  -- arrow
     | IfExp
 
   ConverseOp
-    = "<-"
+    = "<-" "-"? --arrow
+    | "<=" "="? --fat_arrow
 
   IfExp
     = IfExp IfOp IfExp  -- arrow
@@ -27,7 +28,10 @@ Truth {
     | OrExp
 
   IfOp
-    = "->"
+    = "->"  --arrow
+    | "-->" --long_arrow
+    | "=>"  --fat_arrow
+    | "==>" --long_fat_arrow
   
   OrExp
     = OrExp OrOp XorExp  -- or
@@ -35,8 +39,8 @@ Truth {
 
   OrOp
     = caseInsensitive<"or ">
-    | "||"
-    | "|"
+    | "|" "|"?  -- single_or_double_pipe
+    | "\\\\/"
   
   XorExp
     = XorExp XorOp AndExp  -- xor
@@ -52,8 +56,8 @@ Truth {
 
   AndOp
     = caseInsensitive<"and ">
-    | "&&"
-    | "&"
+    | "&" "&"?  --single_or_double_ampersand
+    | "/\\\\"
 
   PriExp
     = NotExp
