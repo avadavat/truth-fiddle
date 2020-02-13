@@ -13,7 +13,6 @@ Truth {
     | "=" "="?  -- single_or_double_equals
     | caseInsensitive<"iff ">
     | caseInsensitive<"if and only if ">
-    | caseInsensitive<"equals ">
 
   ConverseNimplyExp
     = ConverseNimplyExp ConverseNimplyOp ConverseNimplyExp  --converseNimply
@@ -76,6 +75,7 @@ Truth {
 
   XnorOp
     = caseInsensitive<"xnor ">
+    | caseInsensitive<"equals ">
   
   XorExp
     = XorExp XorOp NandExp  -- xor
