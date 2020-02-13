@@ -17,6 +17,8 @@ const reservedKeywords = new Set([
   'nimply',
   'nimplies',
   'xnor',
+  'nand',
+  'nor',
 ]);
 
 /**

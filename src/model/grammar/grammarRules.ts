@@ -45,7 +45,7 @@ Truth {
   IfExp
     = IfExp IfOp IfExp  -- arrow
     | caseInsensitive<"if "> IfExp caseInsensitive<"then "> IfExp  -- ifThen
-    | OrExp
+    | NorExp
 
   IfOp
     = "->"  --arrow
@@ -54,6 +54,13 @@ Truth {
     | "==>" --long_fat_arrow
     | caseInsensitive<"implies ">  --implies
     | caseInsensitive<"imply ">  --imply
+
+  NorExp
+    = NorExp NorOp OrExp  --nor
+    | OrExp
+
+  NorOp
+    = caseInsensitive<"nor ">
   
   OrExp
     = OrExp OrOp XorExp  -- or
@@ -65,8 +72,8 @@ Truth {
     | "\\\\/"
   
   XorExp
-    = XorExp XorOp AndExp  -- xor
-    | AndExp
+    = XorExp XorOp NandExp  -- xor
+    | NandExp
 
   XorOp
     = caseInsensitive<"xor ">
@@ -75,6 +82,13 @@ Truth {
     | "=/="
     | "!="
     | "~="
+
+  NandExp
+    = NandExp NandOp AndExp  -- nand
+    | AndExp
+
+  NandOp
+    = caseInsensitive<"nand ">
   
   AndExp
     = AndExp AndOp PriExp  -- and
@@ -136,6 +150,8 @@ Truth {
       | caseInsensitive<"nimply">
       | caseInsensitive<"nimplies">
       | caseInsensitive<"xnor">
+      | caseInsensitive<"nand">
+      | caseInsensitive<"nor">
     ) ~(alnum+)
 }
 `;

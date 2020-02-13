@@ -49,6 +49,8 @@ const nonimplicationOperators: string[] = [
   'NIMPLIES',
 ];
 const converseNonimplicationOperators: string[] = ['<-/-', '<=/='];
+const nandOperators: string[] = ['nand', 'NAND'];
+const norOperators: string[] = ['nor', 'NOR'];
 
 describe('simple query permutation tests', () => {
   const testCases: {
@@ -411,6 +413,32 @@ describe('simple query permutation tests', () => {
       truthTable: [
         [false, false, false],
         [false, true, true],
+        [true, false, false],
+        [true, true, false],
+      ],
+    });
+  });
+  // NAND operators:
+  nandOperators.forEach(op => {
+    testCases.push({
+      expression: 'p ' + op + ' q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, true],
+        [false, true, true],
+        [true, false, true],
+        [true, true, false],
+      ],
+    });
+  });
+  // NOR operators:
+  norOperators.forEach(op => {
+    testCases.push({
+      expression: 'p ' + op + ' q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, true],
+        [false, true, false],
         [true, false, false],
         [true, true, false],
       ],

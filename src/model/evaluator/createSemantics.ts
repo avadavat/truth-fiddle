@@ -28,13 +28,19 @@ export function createSemantics(
     NotExp: function(_op, exp) {
       return !exp.evaluate();
     },
-    OrExp_or: function(left: any, _op: any, right: any): boolean {
+    OrExp_or: function(left, _op, right): boolean {
       return left.evaluate() || right.evaluate();
     },
-    AndExp_and: function(left: any, _op: any, right: any): boolean {
+    NorExp_nor: function(left, _op, right): boolean {
+      return !(left.evaluate() || right.evaluate());
+    },
+    AndExp_and: function(left, _op, right): boolean {
       return left.evaluate() && right.evaluate();
     },
-    XorExp_xor: function(left: any, _op: any, right: any): boolean {
+    NandExp_nand: function(left, _op, right): boolean {
+      return !(left.evaluate() && right.evaluate());
+    },
+    XorExp_xor: function(left, _op, right): boolean {
       return left.evaluate() !== right.evaluate();
     },
     IfExp_arrow: function(left, _op, right) {
