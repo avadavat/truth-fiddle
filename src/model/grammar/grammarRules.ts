@@ -5,7 +5,7 @@ Truth {
 
   BiconditionalExp
     = BiconditionalExp BiconditionalOp BiconditionalExp  --biconditional
-    | ConverseExp
+    | ConverseNimplyExp
 
   BiconditionalOp
     = "<-" "-"? ">"  --double_arrow
@@ -15,13 +15,31 @@ Truth {
     | caseInsensitive<"if and only if ">
     | caseInsensitive<"equals ">
 
+  ConverseNimplyExp
+    = ConverseNimplyExp ConverseNimplyOp ConverseNimplyExp  --converseNimply
+    | ConverseExp
+
+  ConverseNimplyOp
+    = "<-/-"  --arrow
+    | "<=/="  --fat_arrow
+
   ConverseExp
     = ConverseExp ConverseOp ConverseExp  -- arrow
-    | IfExp
+    | NimplyExp
 
   ConverseOp
     = "<-" "-"? --arrow
     | "<=" "="? --fat_arrow
+
+  NimplyExp
+    = NimplyExp NimplyOp NimplyExp  -- nimply
+    | IfExp
+
+  NimplyOp
+    = caseInsensitive<"nimply ">  --nimply
+    | caseInsensitive<"nimplies ">  --nimplies
+    | "-/->"  --arrow
+    | "=/=>"  --fat_arrow
 
   IfExp
     = IfExp IfOp IfExp  -- arrow
@@ -114,6 +132,8 @@ Truth {
       | caseInsensitive<"equals">
       | caseInsensitive<"imply">
       | caseInsensitive<"implies">
+      | caseInsensitive<"nimply">
+      | caseInsensitive<"nimplies">
     ) ~(alnum+)
 }
 `;

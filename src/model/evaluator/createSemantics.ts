@@ -46,6 +46,12 @@ export function createSemantics(
     ConverseExp_arrow: function(left, _op, right) {
       return left.evaluate() || !right.evaluate();
     },
+    NimplyExp_nimply: function(left, _op, right) {
+      return left.evaluate() && !right.evaluate();
+    },
+    ConverseNimplyExp_converseNimply: function(left, _op, right) {
+      return !left.evaluate() && right.evaluate();
+    },
     BiconditionalExp_biconditional: function(
       left: any,
       _op: any,

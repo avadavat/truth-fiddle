@@ -38,6 +38,15 @@ const biconditionalOperators: string[] = [
   'equals',
 ];
 const converseOperators: string[] = ['<-', '<--', '<=', '<=='];
+const nonimplicationOperators: string[] = [
+  '-/->',
+  '=/=>',
+  'nimply',
+  'nimplies',
+  'NIMPLY',
+  'NIMPLIES',
+];
+const converseNonimplicationOperators: string[] = ['<-/-', '<=/='];
 
 describe('simple query permutation tests', () => {
   const testCases: {
@@ -376,6 +385,32 @@ describe('simple query permutation tests', () => {
         [false, true, false],
         [true, false, true],
         [true, true, true],
+      ],
+    });
+  });
+  // NONIMPLICATION operators:
+  nonimplicationOperators.forEach(op => {
+    testCases.push({
+      expression: 'p ' + op + ' q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, false],
+        [true, false, true],
+        [true, true, false],
+      ],
+    });
+  });
+  // CONVERSE NONIMPLICATION operators:
+  converseNonimplicationOperators.forEach(op => {
+    testCases.push({
+      expression: 'p ' + op + ' q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, true],
+        [true, false, false],
+        [true, true, false],
       ],
     });
   });
