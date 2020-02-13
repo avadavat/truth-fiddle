@@ -16,7 +16,16 @@ const xorOperators: string[] = [
   'not equals',
 ];
 const notOperators: string[] = ['not', 'NOT', 'Not', 'noT', '~', '!'];
-const ifOperators: string[] = ['->', '-->', '=>', '==>'];
+const ifOperators: string[] = [
+  '->',
+  '-->',
+  '=>',
+  '==>',
+  'implies',
+  'imply',
+  'ImPlY',
+  'IMPLiES',
+];
 const biconditionalOperators: string[] = [
   '<->',
   '<=>',

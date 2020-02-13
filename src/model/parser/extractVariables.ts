@@ -12,6 +12,8 @@ const reservedKeywords = new Set([
   'true',
   'false',
   'equals',
+  'imply',
+  'implies',
 ]);
 
 /**

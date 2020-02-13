@@ -33,6 +33,8 @@ Truth {
     | "-->" --long_arrow
     | "=>"  --fat_arrow
     | "==>" --long_fat_arrow
+    | caseInsensitive<"implies ">  --implies
+    | caseInsensitive<"imply ">  --imply
   
   OrExp
     = OrExp OrOp XorExp  -- or
@@ -110,6 +112,8 @@ Truth {
       | caseInsensitive<"true">
       | caseInsensitive<"false">
       | caseInsensitive<"equals">
+      | caseInsensitive<"imply">
+      | caseInsensitive<"implies">
     ) ~(alnum+)
 }
 `;
