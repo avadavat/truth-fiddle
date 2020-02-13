@@ -43,6 +43,9 @@ export function createSemantics(
     XorExp_xor: function(left, _op, right): boolean {
       return left.evaluate() !== right.evaluate();
     },
+    XnorExp_xnor: function(left, _op, right): boolean {
+      return left.evaluate() === right.evaluate();
+    },
     IfExp_arrow: function(left, _op, right) {
       return !left.evaluate() || right.evaluate();
     },

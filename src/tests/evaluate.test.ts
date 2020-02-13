@@ -36,8 +36,6 @@ const biconditionalOperators: string[] = [
   'iff',
   'if and only if',
   'equals',
-  'xnor',
-  'XNOR',
 ];
 const converseOperators: string[] = ['<-', '<--', '<=', '<=='];
 const nonimplicationOperators: string[] = [
@@ -51,6 +49,7 @@ const nonimplicationOperators: string[] = [
 const converseNonimplicationOperators: string[] = ['<-/-', '<=/='];
 const nandOperators: string[] = ['nand', 'NAND'];
 const norOperators: string[] = ['nor', 'NOR'];
+const xnorOperators: string[] = ['xnor', 'XNOR'];
 
 describe('simple query permutation tests', () => {
   const testCases: {
@@ -441,6 +440,19 @@ describe('simple query permutation tests', () => {
         [false, true, false],
         [true, false, false],
         [true, true, false],
+      ],
+    });
+  });
+  // XNOR operators:
+  xnorOperators.forEach(op => {
+    testCases.push({
+      expression: 'p ' + op + ' q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, true],
+        [false, true, false],
+        [true, false, false],
+        [true, true, true],
       ],
     });
   });

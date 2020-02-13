@@ -14,7 +14,6 @@ Truth {
     | caseInsensitive<"iff ">
     | caseInsensitive<"if and only if ">
     | caseInsensitive<"equals ">
-    | caseInsensitive<"xnor ">
 
   ConverseNimplyExp
     = ConverseNimplyExp ConverseNimplyOp ConverseNimplyExp  --converseNimply
@@ -63,13 +62,20 @@ Truth {
     = caseInsensitive<"nor ">
   
   OrExp
-    = OrExp OrOp XorExp  -- or
-    | XorExp
+    = OrExp OrOp XnorExp  -- or
+    | XnorExp
 
   OrOp
     = caseInsensitive<"or ">
     | "|" "|"?  -- single_or_double_pipe
     | "\\\\/"
+
+  XnorExp
+    = XnorExp XnorOp XorExp  --xnor
+    | XorExp
+
+  XnorOp
+    = caseInsensitive<"xnor ">
   
   XorExp
     = XorExp XorOp NandExp  -- xor
