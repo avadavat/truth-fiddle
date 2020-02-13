@@ -59,6 +59,7 @@ Truth {
 
   NorOp
     = caseInsensitive<"nor ">
+    | caseInsensitive<"not or ">
   
   OrExp
     = OrExp OrOp XnorExp  -- or
@@ -76,6 +77,7 @@ Truth {
   XnorOp
     = caseInsensitive<"xnor ">
     | caseInsensitive<"equals ">
+    | caseInsensitive<"not xor ">
   
   XorExp
     = XorExp XorOp NandExp  -- xor
@@ -95,6 +97,7 @@ Truth {
 
   NandOp
     = caseInsensitive<"nand ">
+    | caseInsensitive<"not and ">
   
   AndExp
     = AndExp AndOp PriExp  -- and

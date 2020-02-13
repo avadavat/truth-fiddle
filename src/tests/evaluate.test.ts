@@ -46,9 +46,9 @@ const nonimplicationOperators: string[] = [
   'NIMPLIES',
 ];
 const converseNonimplicationOperators: string[] = ['<-/-', '<=/='];
-const nandOperators: string[] = ['nand', 'NAND'];
-const norOperators: string[] = ['nor', 'NOR'];
-const xnorOperators: string[] = ['xnor', 'XNOR', 'equals', 'EQUALS'];
+const nandOperators: string[] = ['nand', 'NAND', 'not and'];
+const norOperators: string[] = ['nor', 'NOR', 'not or'];
+const xnorOperators: string[] = ['xnor', 'XNOR', 'equals', 'EQUALS', 'not xor'];
 
 describe('simple query permutation tests', () => {
   const testCases: {
