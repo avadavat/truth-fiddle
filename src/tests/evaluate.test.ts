@@ -2,6 +2,34 @@ import { QueryPermutation } from '../model/evaluator/QueryPermutation';
 import { evaluate } from '../model/evaluator/evaluate';
 import { parse } from '../model/parser';
 
+const andOperators: string[] = ['and', 'And', 'AND', 'aND', '&', '&&', '/\\'];
+const orOperators: string[] = ['or', 'OR', 'Or', 'oR', '|', '||', '\\/'];
+const xorOperators: string[] = [
+  'xor',
+  'XOR',
+  'Xor',
+  'xOr',
+  '^',
+  '!=',
+  '=/=',
+  '~=',
+  'not equals',
+];
+const notOperators: string[] = ['not', 'NOT', 'Not', 'noT', '~', '!'];
+const ifOperators: string[] = ['->', '-->', '=>', '==>'];
+const biconditionalOperators: string[] = [
+  '<->',
+  '<=>',
+  '<-->',
+  '<==>',
+  '=',
+  '==',
+  'iff',
+  'if and only if',
+  'equals',
+];
+const converseOperators: string[] = ['<-', '<--', '<=', '<=='];
+
 describe('simple query permutation tests', () => {
   const testCases: {
     expression: string;
@@ -254,7 +282,7 @@ describe('simple query permutation tests', () => {
     },
   ];
   // AND operators:
-  ['and', 'And', 'AND', 'aND', '&', '&&', '/\\'].forEach(op => {
+  andOperators.forEach(op => {
     testCases.push({
       expression: 'p ' + op + ' q',
       variableNames: ['p', 'q'],
@@ -267,7 +295,7 @@ describe('simple query permutation tests', () => {
     });
   });
   // OR operators:
-  ['or', 'OR', 'Or', 'oR', '|', '||', '\\/'].forEach(op => {
+  orOperators.forEach(op => {
     testCases.push({
       expression: 'p ' + op + ' q',
       variableNames: ['p', 'q'],
@@ -280,22 +308,20 @@ describe('simple query permutation tests', () => {
     });
   });
   // XOR operators:
-  ['xor', 'XOR', 'Xor', 'xOr', '^', '!=', '=/=', '~=', 'not equals'].forEach(
-    op => {
-      testCases.push({
-        expression: 'p ' + op + ' q',
-        variableNames: ['p', 'q'],
-        truthTable: [
-          [false, false, false],
-          [false, true, true],
-          [true, false, true],
-          [true, true, false],
-        ],
-      });
-    }
-  );
+  xorOperators.forEach(op => {
+    testCases.push({
+      expression: 'p ' + op + ' q',
+      variableNames: ['p', 'q'],
+      truthTable: [
+        [false, false, false],
+        [false, true, true],
+        [true, false, true],
+        [true, true, false],
+      ],
+    });
+  });
   // NOT operators:
-  ['not', 'NOT', 'Not', 'noT', '~', '!'].forEach(op => {
+  notOperators.forEach(op => {
     testCases.push({
       expression: op + ' p',
       variableNames: ['p'],
@@ -306,7 +332,7 @@ describe('simple query permutation tests', () => {
     });
   });
   // IF operators:
-  ['->', '-->', '=>', '==>'].forEach(op => {
+  ifOperators.forEach(op => {
     testCases.push({
       expression: 'p ' + op + ' q',
       variableNames: ['p', 'q'],
@@ -319,17 +345,7 @@ describe('simple query permutation tests', () => {
     });
   });
   // BICONDITIONAL operators:
-  [
-    '<->',
-    '<=>',
-    '<-->',
-    '<==>',
-    '=',
-    '==',
-    'iff',
-    'if and only if',
-    'equals',
-  ].forEach(op => {
+  biconditionalOperators.forEach(op => {
     testCases.push({
       expression: 'p ' + op + ' q',
       variableNames: ['p', 'q'],
@@ -342,7 +358,7 @@ describe('simple query permutation tests', () => {
     });
   });
   // CONVERSE operators:
-  ['<-', '<--', '<=', '<=='].forEach(op => {
+  converseOperators.forEach(op => {
     testCases.push({
       expression: 'p ' + op + ' q',
       variableNames: ['p', 'q'],
@@ -368,20 +384,6 @@ describe('simple query permutation tests', () => {
         );
       }
     );
-  });
-});
-
-describe('generates correct number of permutations', () => {
-  it('generates 4 permutations for 2 unique variables', () => {
-    expect(evaluate(parse('p and q'))).toHaveLength(4);
-  });
-
-  it('generates 16 permutations for 4 unique variables', () => {
-    expect(evaluate(parse('p and q or r xor s'))).toHaveLength(16);
-  });
-
-  it('generates 16 permutations for 4 unique variables', () => {
-    expect(evaluate(parse('p and q or r xor s or p or q'))).toHaveLength(16);
   });
 });
 
