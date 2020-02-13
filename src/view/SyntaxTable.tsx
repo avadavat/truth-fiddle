@@ -83,6 +83,61 @@ export const SyntaxTable = React.memo(function SyntaxTable() {
             </td>
             <td>&lt;-&gt;</td>
           </tr>
+          <tr>
+            <td>
+              <a
+                href="https://en.wikipedia.org/wiki/Logical_NOR"
+                target="_blank"
+              >
+                Joint Denial
+              </a>
+            </td>
+            <td>NOR</td>
+          </tr>
+          <tr>
+            <td>
+              <a
+                href="https://en.wikipedia.org/wiki/Logical_equality"
+                target="_blank"
+              >
+                Equality
+              </a>
+            </td>
+            <td>=</td>
+          </tr>
+          <tr>
+            <td>
+              <a
+                href="https://en.wikipedia.org/wiki/Sheffer_stroke"
+                target="_blank"
+              >
+                Alternative Denial
+              </a>
+            </td>
+            <td>NAND</td>
+          </tr>
+          <tr>
+            <td>
+              <a
+                href="https://en.wikipedia.org/wiki/Material_nonimplication"
+                target="_blank"
+              >
+                Material Nonimplication
+              </a>
+            </td>
+            <td>-/-&gt;</td>
+          </tr>
+          <tr>
+            <td>
+              <a
+                href="https://en.wikipedia.org/wiki/Converse_nonimplication"
+                target="_blank"
+              >
+                Converse Nonimplication
+              </a>
+            </td>
+            <td>&lt;-/-</td>
+          </tr>
         </tbody>
       </table>
     </div>
