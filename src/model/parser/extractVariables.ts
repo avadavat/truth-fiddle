@@ -16,6 +16,7 @@ const reservedKeywords = new Set([
   'implies',
   'nimply',
   'nimplies',
+  'xnor',
 ]);
 
 /**

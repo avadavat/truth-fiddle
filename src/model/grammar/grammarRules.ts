@@ -14,6 +14,7 @@ Truth {
     | caseInsensitive<"iff ">
     | caseInsensitive<"if and only if ">
     | caseInsensitive<"equals ">
+    | caseInsensitive<"xnor ">
 
   ConverseNimplyExp
     = ConverseNimplyExp ConverseNimplyOp ConverseNimplyExp  --converseNimply
@@ -134,6 +135,7 @@ Truth {
       | caseInsensitive<"implies">
       | caseInsensitive<"nimply">
       | caseInsensitive<"nimplies">
+      | caseInsensitive<"xnor">
     ) ~(alnum+)
 }
 `;

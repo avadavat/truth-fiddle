@@ -36,6 +36,8 @@ const biconditionalOperators: string[] = [
   'iff',
   'if and only if',
   'equals',
+  'xnor',
+  'XNOR',
 ];
 const converseOperators: string[] = ['<-', '<--', '<=', '<=='];
 const nonimplicationOperators: string[] = [
