@@ -21,3 +21,7 @@ npm run dev
 ```
 npm run test
 ```
+5. To run auto-formatter:
+```
+npm run prettier
+```
