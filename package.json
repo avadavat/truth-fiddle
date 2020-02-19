@@ -35,7 +35,7 @@
     "stop": "pm2 stop process.json",
     "restart": "pm2 restart all",
     "prettier": "pretty-quick --staged --pattern \"**/*.*(js|jsx|ts|tsx)\"",
-    "prettier-check": "pretty-quick --check"
+    "prettier-check": "prettier --check \"**/*.*(js|jsx|ts|tsx)\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -59,8 +59,5 @@
     "singleQuote": true
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettier"
-    }
   }
 }
