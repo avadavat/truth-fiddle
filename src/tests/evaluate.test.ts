@@ -12,7 +12,7 @@ const xorOperators: string[] = [
   '^',
   '!=',
   '=/=',
-  '~=',  'not equals',
+  '~=','not equals',
 ];
 const notOperators: string[] = ['not', 'NOT', 'Not', 'noT', '~', '!'];
 const ifOperators: string[] = [
