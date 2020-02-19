@@ -59,5 +59,8 @@
     "singleQuote": true
   },
   "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier"
+    }
   }
 }
