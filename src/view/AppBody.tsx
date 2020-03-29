@@ -44,7 +44,8 @@ export const AppBody = React.memo(function AppBody() {
       setResult(evaluateResult);
     } catch (e) {
       // TODO: Make error message more readable to the user.
-      setMessage(e.message);
+      setMessage('Invalid Query');
+      setResult([]);
     }
   }, [query]);
 
