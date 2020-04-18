@@ -34,9 +34,7 @@ export function extractVariables(expression: string): string[] {
     .filter(word => !reservedKeywords.has(word.toLowerCase()));
 
   // Only count each variable once.
-  const uniqueVariables: string[] = variables.filter(
-    (variable, i) => variables.indexOf(variable) === i
-  );
+  const uniqueVariables = Array.from(new Set(variables));
 
   return uniqueVariables;
 }
