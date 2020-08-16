@@ -12,7 +12,6 @@
     "@types/uuid": "^3.4.5",
     "express": "^4.17.1",
     "ohm-js": "^0.14.0",
-    "pm2": "^3.5.1",
     "query-string": "^6.8.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -31,9 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "pm2 start process.json",
-    "stop": "pm2 stop process.json",
-    "restart": "pm2 restart all",
+    "start": "node server.js",
     "prettier": "pretty-quick --staged --pattern \"**/*.*(js|jsx|ts|tsx)\"",
     "prettier-check": "prettier --check \"**/*.*(js|jsx|ts|tsx)\""
   },
