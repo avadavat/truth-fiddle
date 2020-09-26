@@ -7,5 +7,4 @@ RUN npm ci --silent
 COPY . ./
 RUN npm run build
 EXPOSE 8080
-ENTRYPOINT ["/app/scripts/test.sh"]
 CMD ["npm", "start"]
